@@ -6,7 +6,10 @@ import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+
+
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { PlyrModule } from 'ngx-plyr';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CarouselModule
+    CarouselModule,
+    PlyrModule
     
   ],
   providers: [],

@@ -102,14 +102,16 @@
               "src/style.scss",
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.carousel.min.css",
               "node_modules/ngx-owl-carousel-o/lib/styles/prebuilt-themes/owl.theme.default.min.css",
-              "node_modules/animate.css/animate.min.css"
+              "node_modules/animate.css/animate.min.css",
+              "src/assets/css/audioplayer.css"
             ],
             "scripts": [
               "src/assets/js/bootstrap/bootstrap.min.js",
               "src/assets/js/jquery/jquery-2.2.4.min.js",
               "src/assets/js/plugins/plugins.js",
               "src/assets/js/bootstrap/popper.min.js",
-              "src/assets/js/active.js"
+              "src/assets/js/active.js",
+              "node_modules/plyr/dist/plyr.css"
             ]
           }
         },
