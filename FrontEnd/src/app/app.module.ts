@@ -10,13 +10,19 @@ import { FooterComponent } from './shared/footer/footer.component';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PlyrModule } from 'ngx-plyr';
+import { LoginComponent } from './login/login.component';
+import { AlbumsComponent } from './albums/albums.component';
+import { TrackPlayerComponent } from './track-player/track-player.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    AlbumsComponent,
+    TrackPlayerComponent
   ],
   imports: [
     BrowserModule,
