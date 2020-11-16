@@ -26,6 +26,7 @@
     "bootstrap": "^4.5.3",
     "git": "^0.1.5",
     "magnific-popup": "^1.1.0",
+    "md5-file": "^5.0.0",
     "ng2-owl-carousel": "^0.1.15",
     "ngx-owl-carousel-o": "^4.0.0",
     "ngx-plyr": "^4.0.0",
