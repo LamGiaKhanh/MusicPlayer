@@ -1,0 +1,57 @@
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(../../assets/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <p>Wanna join us?</p>
+        <h2>Register</h2>
+    </div>
+</section>
+
+<!-- ##### Register Area Start ##### -->
+<section class="login-area section-padding-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="login-content">
+                    <h3>Sign up here</h3>
+                    <!-- Alert -->
+                    <div *ngIf="showAlert" class="alert alert-{{alertType}}" role="alert">
+                        {{alertMsg}} <a *ngIf="alertType == 'success'" href="/login" class="alert-link">Login here</a>
+                    </div>
+                    <!-- Login Form -->
+                    <div class="login-form">
+                        <form action="#" method="post">
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" name="email" required #email="ngModel" [(ngModel)]="account.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" [ngClass]="{'is-invalid': email.invalid && (email.touched || email.dirty)}">
+                                <ng-container *ngIf="email.invalid && (email.touched || email.dirty)">
+                                    <small id="emailHelp" *ngIf="email.errors?.required" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Please fill out this field!</small>
+                                    <small id="emailHelp" *ngIf="email.errors?.pattern" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Invalid email!</small>
+                                </ng-container>
+                            </div>
+                            <!-- Password -->
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" class="form-control" name="password" required minlength="6" #password="ngModel" [(ngModel)]="account.password" id="exampleInputPassword1" placeholder="Password" [ngClass]="{'is-invalid': password.invalid && (password.touched || password.dirty)}">     
+                                <ng-container *ngIf="password.invalid && (password.touched || password.dirty)">
+                                    <small id="exampleInputPassword1" *ngIf="password.errors?.required" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Please fill out this field!</small>
+                                    <small id="exampleInputPassword1" *ngIf="password.errors?.minlength" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Passwords must have at least 6 characters!</small>
+                                </ng-container>
+                            </div>
+                            <!-- Confirm Password -->
+                            <div class="form-group">
+                                <label for="exampleInputPassword2">Confirm Password</label>
+                                <input type="password" class="form-control" name="confirm" required #confirm="ngModel" [(ngModel)]="confirmPass" id="exampleInputPassword2" placeholder="Confirm Password" [ngClass]="{'is-invalid': (confirm.invalid || confirmPass != account.password) && (confirm.touched || confirm.dirty)}">     
+                                <ng-container *ngIf="(confirm.invalid || confirmPass != account.password) && (confirm.touched || confirm.dirty)">
+                                    <small id="exampleInputPassword2" *ngIf="confirm.errors?.required && confirm.touched" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Please fill out this field!</small>
+                                    <small id="exampleInputPassword2" *ngIf="confirmPass != '' && confirmPass != account.password" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Passwords don't match!</small>
+                                </ng-container>
+                            </div>
+                            <button [disabled]="email.invalid || password.invalid || confirm.invalid || confirmPass != account.password" (click)="register()" class="btn oneMusic-btn mt-30">Register</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Register Area End ##### -->
