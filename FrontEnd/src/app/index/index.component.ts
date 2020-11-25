@@ -2,6 +2,11 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PlyrComponent } from 'ngx-plyr';
+import { fromEventPattern } from 'rxjs';
+import { IndexService } from './index.service';
+import { Track } from '../track-player/model/model-track';
+import { Artist } from '../track-player/model/model-artist';
+import { Album } from '../track-player/model/model-album';
 
 
 @Component({
@@ -10,11 +15,58 @@ import { PlyrComponent } from 'ngx-plyr';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
+  tracks: Array<Track> = []
+  public Id: string ='';
+  public Title: string ='';
+  public Link: string ='';
+  public Preview: string ='';
+  public md5image: string ='';
+  public tracksArtist : Artist;
+  public trackAlbum: Album;
 
-  constructor() { }
+  public dataset : any[];
+  constructor(private service: IndexService ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.reload();
   }
+
+  private reload = async () => {
+    this.tracks = new Array<Track>();
+    this.tracks = [];
+    this.dataset = await this.getSlide1();
+    console.log(this.tracks[0].Id);
+    console.log('11111');
+  }
+
+  initTrack(track: any): Track
+  {
+    let dataTrack = new Track();
+    dataTrack.Id = track.id;
+    dataTrack.Title = track.title_short;
+    dataTrack.Link = track.link;
+    dataTrack.Preview = track.preview;
+    dataTrack.md5image = track.md5image;
+    dataTrack.tracksArtist = track.artist;
+    dataTrack.tracksAlbum = track.album;
+    return dataTrack;
+  }
+
+  public getSlide1 = async () => {
+    const list = await this.service.getSearchList('eminem') as any;
+    console.log(list);
+    if (list) 
+    {
+      for (let i = 0; i < 9; i++) 
+      {  
+        this.tracks.push(this.initTrack(list[i]));
+      }
+    }
+
+    return this.tracks;
+  }
+
+
   @ViewChild(PlyrComponent)
   plyr: PlyrComponent;
   
@@ -36,7 +88,7 @@ export class IndexComponent implements OnInit {
     this.player.play(); // or this.plyr.player.play()
   }
 
-
+  
   customOptions: OwlOptions = {
     center: true,
     items:4,
