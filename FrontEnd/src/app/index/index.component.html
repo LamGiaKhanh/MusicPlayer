@@ -80,7 +80,7 @@
 
 
     <!-- ##### Featured Artist Area Start ##### -->
-    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image: url(../../assets/img/bg-img/21_Savage-vegas.jpg);">
+    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image:url({{indexTrack.tracksArtist.pictureXL}});">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
@@ -94,9 +94,8 @@
                         <div class="section-heading white text-left mb-30">
                             <p>See what’s new</p>
                             <h2>{{indexTrack.Title}}</h2>
-                            <p>21 Savage</p>
+                            <p>{{indexTrack.tracksArtist.Name}}</p>
                         </div>
-                        <p>"I got 1 2 3 4 5 6 7 8 cats in my grandmas house"</p>
                         <div class="song-name">
                             <p>{{indexTrack.Title}}</p>
                         </div>
@@ -125,7 +124,7 @@
                 <div class="col-12 col-lg-6" >
                     <div class="weeks-top-area mb-100"  >
                         <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
-                            <p>See what’s new</p>
+                            <p>Billboard Top 10</p>
                             <h2>This week’s top</h2>
                         </div>
 
@@ -134,16 +133,17 @@
                             <div class="thumbnail">
                                 <img src="{{track.tracksAlbum.coverBig}}" alt="">
                             </div>
-                            <div class="content-">
+                            <div class="content- col-12 col-lg-3">
                                 <h6>{{track.tracksArtist.Name}}</h6>
                                 <p>{{track.Title}}</p>
                             </div>
-                            <vime-player controls>
-                                <vime-audio cross-origin preload>
-                                  <source data-src="{{track.Preview}}" type="audio/mp3" />
-                                </vime-audio>
-                              </vime-player>
-                            
+                            <div class="col-12 col-lg-3" >
+                                <vime-player controls>
+                                    <vime-audio cross-origin preload>
+                                    <source data-src="{{track.Preview}}" type="audio/mp3" />
+                                    </vime-audio>
+                                </vime-player>
+                            </div>
                         </div>
 
                     </div>
@@ -153,7 +153,7 @@
                 <div class="col-12 col-lg-3">
                     <div class="new-hits-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
+                            <p>Billboard Top 10</p>
                             <h2>This week's album</h2>
                         </div>
 
@@ -177,7 +177,7 @@
                 <div class="col-12 col-lg-3">
                     <div class="popular-artists-area mb-100">
                         <div class="section-heading text-left mb-50 wow fadeInUp" data-wow-delay="50ms">
-                            <p>See what’s new</p>
+                            <p>Billboard Top 10</p>
                             <h2>Popular Artist</h2>
                         </div>
 

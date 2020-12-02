@@ -21,13 +21,6 @@ export class IndexComponent implements OnInit {
   topAlbum: Array<Album> = [];
   topArtist: Array<Artist> = [];
   indexTrack: Track;
-  public Id: string ='';
-  public Title: string ='';
-  public Link: string ='';
-  public Preview: string ='';
-  public md5image: string ='';
-  public tracksArtist : Artist;
-  public trackAlbum: Album;
 
   public dataset : any[];
   public topTrackDataset : any[];
@@ -49,9 +42,8 @@ export class IndexComponent implements OnInit {
     this.topAlbum = [];
     this.topArtist = [];
     this.getIndexTrack();
-    this.topTrackDataset = await this.getTopChart();
+    this.getTopChart();
 
-    console.log(this.topTracks[1].Title);
 
   }
 
@@ -118,7 +110,7 @@ export class IndexComponent implements OnInit {
 
 
   public getSlide1 = async () => {
-    const list = await this.service.getSearchList('travisscott') as any;
+    const list = await this.service.getSearchList('post malone') as any;
     if (list) 
     {
       for (let i = 0; i < 9; i++) 
@@ -165,7 +157,7 @@ export class IndexComponent implements OnInit {
   }
 
   public getIndexTrack = async () => {
-    const list = await this.service.getSearchList('bank account') as any;
+    const list = await this.service.getSearchList('white iverson') as any;
     if (list) 
     {
       this.indexTrack = this.initTrack(list[0]);

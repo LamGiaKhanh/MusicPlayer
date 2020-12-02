@@ -28,6 +28,23 @@ namespace MusicPlayer.Controllers
             }
             return result;
         }
+
+        [HttpGet("album/{query}")]
+        public async Task<ActionResult<object>> Get3Trackslbum(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/album/autocomplete?limit=3&q={query}"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
+
         [HttpGet("Chart")]
         public async Task<ActionResult<object>> GetCharts(string type)
         {
