@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit {
     this.topAlbum = [];
     this.topArtist = [];
     this.getIndexTrack();
-    this.topTrackDataset = await this.getTopChart();
+    await this.getTopChart();
 
     console.log(this.topTracks[1].Title);
 
@@ -70,13 +70,13 @@ export class IndexComponent implements OnInit {
     dataTrack.tracksArtist.pictureMedium = track.artist.picture_medium;    
     dataTrack.tracksArtist.pictureXL = track.artist.picture_xl;
     dataTrack.tracksArtist.Picture = track.artist.picture;
-    dataTrack.tracksAlbum = track.album;
-    dataTrack.tracksAlbum.Id = track.album.id;
-    dataTrack.tracksAlbum.Name = track.album.name;
-    dataTrack.tracksAlbum.Cover = track.album.cover;
-    dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
-    dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
-    dataTrack.tracksAlbum.coverBig = track.album.cover_big;
+    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.name, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: null, albumArtist: null, trackList: null};
+    // dataTrack.tracksAlbum.Id = track.album.id;
+    // dataTrack.tracksAlbum.Name = track.album.name;
+    // dataTrack.tracksAlbum.Cover = track.album.cover;
+    // dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
+    // dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
+    // dataTrack.tracksAlbum.coverBig = track.album.cover_big;
     return dataTrack;
   }
 
@@ -90,13 +90,14 @@ export class IndexComponent implements OnInit {
     dataAlbum.coverMedium = album.cover_medium;
     dataAlbum.coverSmall = album.cover_small;
     dataAlbum.coverXL = album.cover_xl;
-    dataAlbum.albumArtist.Id = album.artist.id;
-    dataAlbum.albumArtist.Name = album.artist.name;
-    dataAlbum.albumArtist.Picture = album.artist.picture;
-    dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
-    dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
-    dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
-    dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
+    dataAlbum.albumArtist = {Id:  album.artist.id, Name: album.artist.name, Picture: album.artist.picture, pictureSmall: album.artist.picture_small, pictureMedium: album.artist.picture_medium, pictureBig: album.artist.picture_big, pictureXL: album.artist.picture_xl }
+    // dataAlbum.albumArtist.Id = album.artist.id;
+    // dataAlbum.albumArtist.Name = album.artist.name;
+    // dataAlbum.albumArtist.Picture = album.artist.picture;
+    // dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
+    // dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
+    // dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
+    // dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
     //trackList api: https://api.deezer.com/album/{{id}}/tracks
     return dataAlbum;
   }
@@ -137,26 +138,16 @@ export class IndexComponent implements OnInit {
       {
         for (let i = 0; i < 9; i++) 
         {
+          // console.log(list.tracks.data[i])
           this.topTracks.push(this.initTrack(list.tracks.data[i]));
-          //this.topAlbum.push(this.initAlbum(list.albums.data[i]));
-          //this.topArtist.push(this.initArtist(list.artists.data[i]));
-        }
-        for (let i = 0; i < 9; i++) 
-        {
-          //this.topTracks.push(this.initTrack(list.tracks.data[i]));
           this.topAlbum.push(this.initAlbum(list.albums.data[i]));
-          //this.topArtist.push(this.initArtist(list.artists.data[i]));
-        }
-        for (let i = 0; i < 9; i++) 
-        {
-          //this.topTracks.push(this.initTrack(list.tracks.data[i]));
-          //this.topAlbum.push(this.initAlbum(list.albums.data[i]));
           this.topArtist.push(this.initArtist(list.artists.data[i]));
         }
-
         
       }
-      return this.topTracks;
+      console.log(this.topTracks)
+      console.log(this.topAlbum)
+      console.log(this.topArtist)
     }
     catch (e)
     {
