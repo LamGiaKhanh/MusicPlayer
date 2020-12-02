@@ -1,3 +1,6 @@
+import { Artist } from "./model-artist";
+import { Track } from "./model-track";
+
 export class Album
 {
     Id: string;
@@ -7,4 +10,6 @@ export class Album
     coverMedium: string;
     coverBig: string;
     coverXL: string;
+    albumArtist: Artist;
+    trackList: Array<Track>;
 }

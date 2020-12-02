@@ -2,11 +2,12 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { PlyrComponent } from 'ngx-plyr';
+import { VimePlayer} from 'node_modules/@vime/angular';
 import { fromEventPattern } from 'rxjs';
 import { IndexService } from './index.service';
-import { Track } from '../track-player/model/model-track';
-import { Artist } from '../track-player/model/model-artist';
-import { Album } from '../track-player/model/model-album';
+import { Track } from '../model/model-track';
+import { Artist } from '../model/model-artist';
+import { Album } from '../model/model-album';
 
 
 @Component({
@@ -15,7 +16,11 @@ import { Album } from '../track-player/model/model-album';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-  tracks: Array<Track> = []
+  tracks: Array<Track> = [];
+  topTracks: Array<Track> = [];
+  topAlbum: Array<Album> = [];
+  topArtist: Array<Artist> = [];
+  indexTrack: Track;
   public Id: string ='';
   public Title: string ='';
   public Link: string ='';
@@ -25,6 +30,7 @@ export class IndexComponent implements OnInit {
   public trackAlbum: Album;
 
   public dataset : any[];
+  public topTrackDataset : any[];
   constructor(private service: IndexService ) { }
 
   async ngOnInit(): Promise<void> {
@@ -34,9 +40,19 @@ export class IndexComponent implements OnInit {
   private reload = async () => {
     this.tracks = new Array<Track>();
     this.tracks = [];
+    this.indexTrack = new Track();
     this.dataset = await this.getSlide1();
-    console.log(this.tracks[0].Id);
-    console.log('11111');
+    this.topTracks = new Array<Track>();
+    this.topAlbum = new Array<Album>();
+    this.topArtist = new Array<Artist>();
+    this.topTracks = [];
+    this.topAlbum = [];
+    this.topArtist = [];
+    this.getIndexTrack();
+    this.topTrackDataset = await this.getTopChart();
+
+    console.log(this.topTracks[1].Title);
+
   }
 
   initTrack(track: any): Track
@@ -48,46 +64,117 @@ export class IndexComponent implements OnInit {
     dataTrack.Preview = track.preview;
     dataTrack.md5image = track.md5image;
     dataTrack.tracksArtist = track.artist;
+    dataTrack.tracksArtist.Id = track.artist.id;
+    dataTrack.tracksArtist.Name = track.artist.name;
+    dataTrack.tracksArtist.pictureSmall = track.artist.picture_small;
+    dataTrack.tracksArtist.pictureMedium = track.artist.picture_medium;    
+    dataTrack.tracksArtist.pictureXL = track.artist.picture_xl;
+    dataTrack.tracksArtist.Picture = track.artist.picture;
     dataTrack.tracksAlbum = track.album;
+    dataTrack.tracksAlbum.Id = track.album.id;
+    dataTrack.tracksAlbum.Name = track.album.name;
+    dataTrack.tracksAlbum.Cover = track.album.cover;
+    dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
+    dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
+    dataTrack.tracksAlbum.coverBig = track.album.cover_big;
     return dataTrack;
   }
 
+  initAlbum(album: any): Album
+  {
+    let dataAlbum = new Album();
+    dataAlbum.Id = album.id;
+    dataAlbum.Name = album.title;
+    dataAlbum.Cover = album.cover;
+    dataAlbum.coverBig = album.cover_big;
+    dataAlbum.coverMedium = album.cover_medium;
+    dataAlbum.coverSmall = album.cover_small;
+    dataAlbum.coverXL = album.cover_xl;
+    dataAlbum.albumArtist.Id = album.artist.id;
+    dataAlbum.albumArtist.Name = album.artist.name;
+    dataAlbum.albumArtist.Picture = album.artist.picture;
+    dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
+    dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
+    dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
+    dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
+    //trackList api: https://api.deezer.com/album/{{id}}/tracks
+    return dataAlbum;
+  }
+
+  initArtist(artist: any): Artist
+  {
+    let dataArtist = new Artist();
+    dataArtist.Id = artist.id;
+    dataArtist.Name = artist.name;
+    dataArtist.Picture = artist.picture;
+    dataArtist.pictureSmall = artist.picture_small;
+    dataArtist.pictureMedium = artist.picture_medium;
+    dataArtist.pictureBig = artist.picture_big;
+    dataArtist.pictureXL = artist.picture_xl;
+    
+    //trackList api: 	"https://api.deezer.com/artist/75798/top?limit=10"
+    return dataArtist;
+  }
+
+
   public getSlide1 = async () => {
-    const list = await this.service.getSearchList('eminem') as any;
-    console.log(list);
+    const list = await this.service.getSearchList('travisscott') as any;
     if (list) 
     {
       for (let i = 0; i < 9; i++) 
       {  
         this.tracks.push(this.initTrack(list[i]));
+        
       }
     }
-
     return this.tracks;
   }
 
+  public getTopChart = async () => {
+    try {
+      const list = await this.service.getChartList() as any;
+      if (list)
+      {
+        for (let i = 0; i < 9; i++) 
+        {
+          this.topTracks.push(this.initTrack(list.tracks.data[i]));
+          //this.topAlbum.push(this.initAlbum(list.albums.data[i]));
+          //this.topArtist.push(this.initArtist(list.artists.data[i]));
+        }
+        for (let i = 0; i < 9; i++) 
+        {
+          //this.topTracks.push(this.initTrack(list.tracks.data[i]));
+          this.topAlbum.push(this.initAlbum(list.albums.data[i]));
+          //this.topArtist.push(this.initArtist(list.artists.data[i]));
+        }
+        for (let i = 0; i < 9; i++) 
+        {
+          //this.topTracks.push(this.initTrack(list.tracks.data[i]));
+          //this.topAlbum.push(this.initAlbum(list.albums.data[i]));
+          this.topArtist.push(this.initArtist(list.artists.data[i]));
+        }
 
-  @ViewChild(PlyrComponent)
-  plyr: PlyrComponent;
-  
-  // or get it from plyrInit event
-  player: Plyr;
-  
-  videoSources: Plyr.Source[] = [
+        
+      }
+      return this.topTracks;
+    }
+    catch (e)
     {
-      src: 'bTqVqk7FSmY',
-      provider: 'youtube',
-    },
-  ];
-  
-  played(event: Plyr.PlyrEvent) {
-    console.log('played', event);
-  }
-  
-  play(): void {
-    this.player.play(); // or this.plyr.player.play()
+      console.log(e);
+    }
   }
 
+  public getIndexTrack = async () => {
+    const list = await this.service.getSearchList('bank account') as any;
+    if (list) 
+    {
+      this.indexTrack = this.initTrack(list[0]);
+    }
+
+    return this.indexTrack;
+  }
+
+  @ViewChild('player') player!: VimePlayer;
   
   customOptions: OwlOptions = {
     center: true,

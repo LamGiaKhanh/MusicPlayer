@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~10.0.11",
     "@angular/router": "~10.0.11",
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "@vime/angular": "^4.7.3",
     "active": "^1.0.11",
     "animate": "^1.0.0",
     "animate.css": "^4.1.1",

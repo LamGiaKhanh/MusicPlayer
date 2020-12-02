@@ -15,10 +15,12 @@ import { LoginComponent } from './login/login.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrackPlayerComponent } from './track-player/track-player.component';
 import { RegisterComponent } from './register/register.component';
+import { VimeModule } from 'node_modules/@vime/angular'
 
 //Services
 import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication/authentication.service';
+import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AuthenticationService } from './authentication/authentication.service';
     LoginComponent,
     AlbumsComponent,
     TrackPlayerComponent,
-    RegisterComponent
+    RegisterComponent,
+    TapSidesToSeekComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { AuthenticationService } from './authentication/authentication.service';
     CarouselModule,
     PlyrModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    VimeModule
   ],
   providers: [
     ApiService, 
