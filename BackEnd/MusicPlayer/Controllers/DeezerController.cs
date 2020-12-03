@@ -30,12 +30,12 @@ namespace MusicPlayer.Controllers
         }
 
         [HttpGet("album/{query}")]
-        public async Task<ActionResult<object>> Get3Trackslbum(string query)
+        public async Task<ActionResult<object>> Get3TracksAlbum(string query)
         {
             object result;
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/album/autocomplete?limit=3&q={query}"))
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/album/&q=artist:" + '"'+ $"{query}" + '"' +$" &limit=3"))
                 {
                     if (!response.IsSuccessStatusCode) return NotFound();
                     string apiResponse = await response.Content.ReadAsStringAsync();
@@ -44,6 +44,23 @@ namespace MusicPlayer.Controllers
             }
             return result;
         }
+
+        [HttpGet("album/player/{query}")]
+        public async Task<ActionResult<object>> GetEntireAlbum(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"/album/{query}"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
+
 
         [HttpGet("Chart")]
         public async Task<ActionResult<object>> GetCharts(string type)

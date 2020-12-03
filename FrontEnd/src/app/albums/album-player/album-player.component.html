@@ -1,0 +1,105 @@
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay mb-4" style="background-image: url(../../assets/img/bg-img/breadcumb3.jpg);">
+    <div class="bradcumbContent">
+        <p>Album Player</p>
+        <h2>Nhaccuatoy</h2>
+    </div>
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+<!-- ##### Add Area Start ##### -->
+<div class="add-area mb-100 justify-content-center ">
+    <div class="container">
+        <div class="row">
+            <div class="col-3 placeholder"> 
+            </div>
+            <div class="col-lg-6 ">
+                <div class="adds text-center">
+                    <img class="img-fluid mt-4" src="{{this.albumDetail.coverBig}}" alt="">
+                    <h2 class="style-2 ">{{this.albumDetail.Name}}</h2>
+                    <p class="style-2  ">{{this.albumDetail.albumArtist.Name}}</p>
+                </div>
+            </div>
+            
+        </div>
+       
+    </div>
+</div>
+<!-- ##### Add Area End ##### -->
+
+<section class="miscellaneous-area ">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-12" >
+                <div class="weeks-top-area mb-100"  >
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
+                        <p>List of Track</p>
+                        <h2>{{this.albumDetail.Name}}</h2>
+                    </div>
+                    <div class="single-top-item d-flex wow fadeInUp" *ngFor='let track of listTracks' data-wow-delay="100ms">
+                        <div class="content- col-12 col-lg-6">
+                            <h6>{{track.Title}}</h6>
+                            <p>{{track.tracksArtist.Name}} </p>
+                        </div>
+                        <div class="col-12 col-lg-4" >
+                            <vime-player controls>
+                                <vime-audio cross-origin preload>
+                                <source data-src="{{track.Preview}}" type="audio/mp3" />
+                                </vime-audio>
+                            </vime-player>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area Start ##### -->
+<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(../../assets/img/bg-img/bg-2.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white">
+                    <p>See what’s new</p>
+                    <h2>Get In Touch</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Contact Form Area -->
+                <div class="contact-form-area">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area End ##### -->

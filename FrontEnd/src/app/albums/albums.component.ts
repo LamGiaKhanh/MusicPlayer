@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from '../model/model-album';
 import { AlbumsService } from './albums.service';
+import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-albums',
@@ -10,7 +12,7 @@ import { AlbumsService } from './albums.service';
 export class AlbumsComponent implements OnInit {
   listAlbum: Array<Album> = [];
   albumDataset: any[];
-  constructor(private service: AlbumsService) { }
+  constructor(private service: AlbumsService, private router: Router, private route: ActivatedRoute) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -35,13 +37,14 @@ export class AlbumsComponent implements OnInit {
     dataAlbum.coverMedium = album.cover_medium;
     dataAlbum.coverSmall = album.cover_small;
     dataAlbum.coverXL = album.cover_xl;
-    dataAlbum.albumArtist.Id = album.artist.id;
-    dataAlbum.albumArtist.Name = album.artist.name;
-    dataAlbum.albumArtist.Picture = album.artist.picture;
-    dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
-    dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
-    dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
-    dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
+    dataAlbum.albumArtist = {Id:  album.artist.id, Name: album.artist.name, Picture: album.artist.picture, pictureSmall: album.artist.picture_small, pictureMedium: album.artist.picture_medium, pictureBig: album.artist.picture_big, pictureXL: album.artist.picture_xl }
+    // dataAlbum.albumArtist.Id = album.artist.id;
+    // dataAlbum.albumArtist.Name = album.artist.name;
+    // dataAlbum.albumArtist.Picture = album.artist.picture;
+    // dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
+    // dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
+    // dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
+    // dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
     //trackList api: https://api.deezer.com/album/{{id}}/tracks
     return dataAlbum;
   }
@@ -49,10 +52,10 @@ export class AlbumsComponent implements OnInit {
   
   public getAlbumList = async () => {
     try{
-    const list = await this.service.getAlbumList('travisscott') as any;
+    const list = await this.service.getAlbumList('adele') as any;
     if (list) 
     {
-      for (let i = 0; i < 2; i++) 
+      for (let i = 0; i < 3; i++) 
       {  
         this.listAlbum.push(this.initAlbum(list[i]));
         
@@ -61,27 +64,27 @@ export class AlbumsComponent implements OnInit {
     const list2 = await this.service.getAlbumList('post malone') as any;
     if (list2) 
     {
-      for (let i = 0; i < 2; i++) 
+      for (let i = 0; i < 3; i++) 
       {  
-        this.listAlbum.push(this.initAlbum(list[i]));
+        this.listAlbum.push(this.initAlbum(list2[i]));
         
       }
     }
     const list3 = await this.service.getAlbumList('drake') as any;
     if (list3) 
     {
-      for (let i = 0; i < 2; i++) 
+      for (let i = 0; i < 3; i++) 
       {  
-        this.listAlbum.push(this.initAlbum(list[i]));
+        this.listAlbum.push(this.initAlbum(list3[i]));
         
       }
     }
     const list4 = await this.service.getAlbumList('eminem') as any;
     if (list4) 
     {
-      for (let i = 0; i < 2; i++) 
+      for (let i = 0; i < 3; i++) 
       {  
-        this.listAlbum.push(this.initAlbum(list[i]));
+        this.listAlbum.push(this.initAlbum(list4[i]));
         
       }
     }
@@ -91,5 +94,8 @@ export class AlbumsComponent implements OnInit {
     {
       console.log(e);
     }
+  }
+  public onClick = async (query) => {
+    this.router.navigate(['/album-player/'], {queryParams: {id: query}});
   }
 }

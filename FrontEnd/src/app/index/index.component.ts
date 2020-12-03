@@ -8,6 +8,7 @@ import { IndexService } from './index.service';
 import { Track } from '../model/model-track';
 import { Artist } from '../model/model-artist';
 import { Album } from '../model/model-album';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class IndexComponent implements OnInit {
 
   public dataset : any[];
   public topTrackDataset : any[];
-  constructor(private service: IndexService ) { }
+  constructor(private service: IndexService, private router: Router, private route: ActivatedRoute ) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -42,7 +43,7 @@ export class IndexComponent implements OnInit {
     this.topAlbum = [];
     this.topArtist = [];
     this.getIndexTrack();
-    this.getTopChart();
+    await this.getTopChart();
 
 
   }
@@ -55,20 +56,14 @@ export class IndexComponent implements OnInit {
     dataTrack.Link = track.link;
     dataTrack.Preview = track.preview;
     dataTrack.md5image = track.md5image;
-    dataTrack.tracksArtist = track.artist;
-    dataTrack.tracksArtist.Id = track.artist.id;
-    dataTrack.tracksArtist.Name = track.artist.name;
-    dataTrack.tracksArtist.pictureSmall = track.artist.picture_small;
-    dataTrack.tracksArtist.pictureMedium = track.artist.picture_medium;    
-    dataTrack.tracksArtist.pictureXL = track.artist.picture_xl;
-    dataTrack.tracksArtist.Picture = track.artist.picture;
-    dataTrack.tracksAlbum = track.album;
-    dataTrack.tracksAlbum.Id = track.album.id;
-    dataTrack.tracksAlbum.Name = track.album.name;
-    dataTrack.tracksAlbum.Cover = track.album.cover;
-    dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
-    dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
-    dataTrack.tracksAlbum.coverBig = track.album.cover_big;
+    dataTrack.tracksArtist = {Id: track.artist.id, Name: track.artist.name, pictureBig:track.artist.picture_big, pictureMedium:track.artist.picture_medium, pictureSmall:track.artist.picture_small,pictureXL: track.artist.picture_xl, Picture: track.artist.picture};
+    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.name, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
+    // dataTrack.tracksAlbum.Id = track.album.id;
+    // dataTrack.tracksAlbum.Name = track.album.name;
+    // dataTrack.tracksAlbum.Cover = track.album.cover;
+    // dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
+    // dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
+    // dataTrack.tracksAlbum.coverBig = track.album.cover_big;
     return dataTrack;
   }
 
@@ -82,13 +77,14 @@ export class IndexComponent implements OnInit {
     dataAlbum.coverMedium = album.cover_medium;
     dataAlbum.coverSmall = album.cover_small;
     dataAlbum.coverXL = album.cover_xl;
-    dataAlbum.albumArtist.Id = album.artist.id;
-    dataAlbum.albumArtist.Name = album.artist.name;
-    dataAlbum.albumArtist.Picture = album.artist.picture;
-    dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
-    dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
-    dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
-    dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
+    dataAlbum.albumArtist = {Id:  album.artist.id, Name: album.artist.name, Picture: album.artist.picture, pictureSmall: album.artist.picture_small, pictureMedium: album.artist.picture_medium, pictureBig: album.artist.picture_big, pictureXL: album.artist.picture_xl }
+    // dataAlbum.albumArtist.Id = album.artist.id;
+    // dataAlbum.albumArtist.Name = album.artist.name;
+    // dataAlbum.albumArtist.Picture = album.artist.picture;
+    // dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
+    // dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
+    // dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
+    // dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
     //trackList api: https://api.deezer.com/album/{{id}}/tracks
     return dataAlbum;
   }
@@ -113,7 +109,7 @@ export class IndexComponent implements OnInit {
     const list = await this.service.getSearchList('post malone') as any;
     if (list) 
     {
-      for (let i = 0; i < 9; i++) 
+      for (let i = 0; i < 10; i++) 
       {  
         this.tracks.push(this.initTrack(list[i]));
         
@@ -127,28 +123,15 @@ export class IndexComponent implements OnInit {
       const list = await this.service.getChartList() as any;
       if (list)
       {
-        for (let i = 0; i < 9; i++) 
+        for (let i = 0; i < 10; i++) 
         {
+          // console.log(list.tracks.data[i])
           this.topTracks.push(this.initTrack(list.tracks.data[i]));
-          //this.topAlbum.push(this.initAlbum(list.albums.data[i]));
-          //this.topArtist.push(this.initArtist(list.artists.data[i]));
-        }
-        for (let i = 0; i < 9; i++) 
-        {
-          //this.topTracks.push(this.initTrack(list.tracks.data[i]));
           this.topAlbum.push(this.initAlbum(list.albums.data[i]));
-          //this.topArtist.push(this.initArtist(list.artists.data[i]));
-        }
-        for (let i = 0; i < 9; i++) 
-        {
-          //this.topTracks.push(this.initTrack(list.tracks.data[i]));
-          //this.topAlbum.push(this.initAlbum(list.albums.data[i]));
           this.topArtist.push(this.initArtist(list.artists.data[i]));
         }
-
         
       }
-      return this.topTracks;
     }
     catch (e)
     {
@@ -157,7 +140,7 @@ export class IndexComponent implements OnInit {
   }
 
   public getIndexTrack = async () => {
-    const list = await this.service.getSearchList('white iverson') as any;
+    const list = await this.service.getSearchList('xo tour life') as any;
     if (list) 
     {
       this.indexTrack = this.initTrack(list[0]);
@@ -165,7 +148,9 @@ export class IndexComponent implements OnInit {
 
     return this.indexTrack;
   }
-
+  public onClick = async (query) => {
+    this.router.navigate(['/album-player/'], {queryParams: {id: query}});
+  }
   @ViewChild('player') player!: VimePlayer;
   
   customOptions: OwlOptions = {

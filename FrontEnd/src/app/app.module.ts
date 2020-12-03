@@ -21,6 +21,7 @@ import { VimeModule } from 'node_modules/@vime/angular'
 import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication/authentication.service';
 import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.component';
+import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.c
     AlbumsComponent,
     TrackPlayerComponent,
     RegisterComponent,
-    TapSidesToSeekComponent
+    TapSidesToSeekComponent,
+    AlbumPlayerComponent
   ],
   imports: [
     BrowserModule,

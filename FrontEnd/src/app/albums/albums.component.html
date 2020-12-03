@@ -11,51 +11,17 @@
 <section class="album-catagory section-padding-100-0">
     <div class="container">
         <div class="row">
-            <div class="col-12">
-                <div class="browse-by-catagories catagory-menu d-flex flex-wrap align-items-center mb-70">
-                    <a data-filter="*">Browse All</a>
-                    <a data-filter=".a">A</a>
-                    <a data-filter=".b">B</a>
-                    <a data-filter=".c">C</a>
-                    <a data-filter=".d">D</a>
-                    <a data-filter=".e">E</a>
-                    <a data-filter=".f">F</a>
-                    <a data-filter=".g">G</a>
-                    <a data-filter=".h">H</a>
-                    <a data-filter=".i">I</a>
-                    <a data-filter=".j">J</a>
-                    <a data-filter=".k">K</a>
-                    <a data-filter=".l">L</a>
-                    <a data-filter=".m">M</a>
-                    <a data-filter=".n">N</a>
-                    <a data-filter=".o">O</a>
-                    <a data-filter=".p">P</a>
-                    <a data-filter=".q">Q</a>
-                    <a data-filter=".r">R</a>
-                    <a data-filter=".s">S</a>
-                    <a data-filter=".t">T</a>
-                    <a data-filter=".u">U</a>
-                    <a data-filter=".v">V</a>
-                    <a data-filter=".w">W</a>
-                    <a data-filter=".x">X</a>
-                    <a data-filter=".y">Y</a>
-                    <a data-filter=".z">Z</a>
-                    <a data-filter=".number">0-9</a>
-                </div>
-            </div>
+            
         </div>
 
-        <div class="row oneMusic-albums" > 
-
+        <div class="row oneMusic-albums pd-4" > 
             <!-- Single Album -->
-            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item t c p" *ngFor='let album of listAlbum'>
+            <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item ${{album.Name.substr(0,1)}} ${{album.Name.substr((album.Name).length - 1,1)}}" *ngFor='let album of listAlbum'>
                 <div class="single-album">
                     <img src="{{album.coverBig}}" alt="">
                     <div class="album-info">
-                        <a href="#">
-                            <h5>album.albumArtist.Name</h5>
-                        </a>
-                        <p>album.Name</p>
+                        <a (click)='onClick(album.Id)' href="/album-player/?Id={{album.Id}}">  {{album.Name}}</a>
+                        <p>{{album.albumArtist.Name}}</p>
                     </div>
                 </div>
             </div>
@@ -64,95 +30,10 @@
     </div>
 </section>
 <!-- ##### Album Catagory Area End ##### -->
-
-<!-- ##### Buy Now Area Start ##### -->
-<div class="oneMusic-buy-now-area mb-100">
-    <div class="container">
-        <div class="row">
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="../../assets/img/bg-img/b1.jpg" alt="">
-                        <!-- Album Price -->
-                        <div class="album-price">
-                            <p>$0.90</p>
-                        </div>
-                        <!-- Play Icon -->
-                        <div class="play-icon">
-                            <a href="#" class="video--play--btn"><span class="icon-play-button"></span></a>
-                        </div>
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Garage Band</h5>
-                        </a>
-                        <p>Radio Station</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="../../assets/img/bg-img/b2.jpg" alt="">
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Noises</h5>
-                        </a>
-                        <p>Buble Gum</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="../../assets/img/bg-img/b3.jpg" alt="">
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Jess Parker</h5>
-                        </a>
-                        <p>The Album</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Album Area -->
-            <div class="col-12 col-sm-6 col-md-3">
-                <div class="single-album-area">
-                    <div class="album-thumb">
-                        <img src="../../assets/img/bg-img/b4.jpg" alt="">
-                    </div>
-                    <div class="album-info">
-                        <a href="#">
-                            <h5>Noises</h5>
-                        </a>
-                        <p>Buble Gum</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <div class="load-more-btn text-center">
-                    <a href="#" class="btn oneMusic-btn">Load More <i class="fa fa-angle-double-right"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ##### Buy Now Area End ##### -->
+<div class="placeholder"></div>
 
 <!-- ##### Add Area Start ##### -->
-<div class="add-area mb-100">
+<div class="add-area mb-100 ">
     <div class="container">
         <div class="row">
             <div class="col-12">

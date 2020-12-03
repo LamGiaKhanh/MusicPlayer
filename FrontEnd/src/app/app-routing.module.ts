@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrackPlayerComponent } from './track-player/track-player.component';
 import { RegisterComponent } from './register/register.component';
+import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'login',             component: LoginComponent },
   { path: 'register',             component: RegisterComponent },
   { path: 'albums',             component: AlbumsComponent },
+  { path: 'album-player',             component: AlbumPlayerComponent },
   { path: 'track-player',             component: TrackPlayerComponent },
   { path: '',             component: IndexComponent }
 ];
