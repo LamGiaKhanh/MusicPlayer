@@ -35,7 +35,7 @@ export class IndexComponent implements OnInit {
     this.tracks = new Array<Track>();
     this.tracks = [];
     this.indexTrack = new Track();
-    this.dataset = await this.getSlide1();
+    this.dataset = await this.getSlide10();
     this.topTracks = new Array<Track>();
     this.topAlbum = new Array<Album>();
     this.topArtist = new Array<Artist>();
@@ -44,8 +44,6 @@ export class IndexComponent implements OnInit {
     this.topArtist = [];
     this.getIndexTrack();
     await this.getTopChart();
-
-
   }
 
   initTrack(track: any): Track
@@ -105,8 +103,8 @@ export class IndexComponent implements OnInit {
   }
 
 
-  public getSlide1 = async () => {
-    const list = await this.service.getSearchList('post malone') as any;
+  public getSlide10 = async () => {
+    const list = await this.service.getSearchList('travis scott') as any;
     if (list) 
     {
       for (let i = 0; i < 10; i++) 
@@ -140,6 +138,8 @@ export class IndexComponent implements OnInit {
   }
 
   public getIndexTrack = async () => {
+    try
+    {
     const list = await this.service.getSearchList('xo tour life') as any;
     if (list) 
     {
@@ -147,10 +147,21 @@ export class IndexComponent implements OnInit {
     }
 
     return this.indexTrack;
+    }
+    catch (e)
+    {
+      console.log(e);
+    }
+
   }
-  public onClick = async (query) => {
+  public onAlbumClick = async (query) => {
     this.router.navigate(['/album-player/'], {queryParams: {id: query}});
   }
+
+  public onTrackClick = async (query) => {
+    this.router.navigate(['/track-player/'], {queryParams: {id: query}});
+  }
+
   @ViewChild('player') player!: VimePlayer;
   
   customOptions: OwlOptions = {

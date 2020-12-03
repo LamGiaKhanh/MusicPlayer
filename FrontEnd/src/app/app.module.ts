@@ -13,7 +13,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { PlyrModule } from 'ngx-plyr';
 import { LoginComponent } from './login/login.component';
 import { AlbumsComponent } from './albums/albums.component';
-import { TrackPlayerComponent } from './track-player/track-player.component';
+import { TrackPlayerComponent } from './tracks/track-player/track-player.component';
 import { RegisterComponent } from './register/register.component';
 import { VimeModule } from 'node_modules/@vime/angular'
 
@@ -22,6 +22,7 @@ import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication/authentication.service';
 import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.component';
 import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
+import { TracksComponent } from './tracks/tracks.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AlbumPlayerComponent } from './albums/album-player/album-player.compone
     TrackPlayerComponent,
     RegisterComponent,
     TapSidesToSeekComponent,
-    AlbumPlayerComponent
+    AlbumPlayerComponent,
+    TracksComponent
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">O U T N O W</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">Savage Mode II<span>Savage Mode II</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" href="#" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                <a data-animation="fadeInUp" data-delay="500ms" (click)='onAlbumClick(180196822)' href="/album-player/?Id=180196822" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -62,13 +62,14 @@
                 
                 <ng-template carouselSlide *ngFor='let track of tracks'>
                     <div class="single-album">
-                        <img class="d-flex" src="{{track.tracksAlbum.coverBig}}" alt="">
-                        <div class="album-info">
-                            <a href="track/">
+                        <a href="track-player/" (click)='onTrackClick(track.Id)' href="/track-player/?Id={{track.Id}}">
+                            <img class="d-flex" src="{{track.tracksAlbum.coverBig}}" alt="">
+                            <div class="album-info">
                                 <h5>{{track.Title}}</h5>
-                            </a>
-                            <p>{{track.tracksArtist.Name}}</p>
-                        </div>
+                                <p>{{track.tracksArtist.Name}}</p>
+
+                            </div>
+                    </a>
                     </div>
                 </ng-template>  
 
@@ -163,8 +164,8 @@
                                     <img src="{{album.coverBig}}" alt="">
                                 </div>
                                 <div class="content-">
-                                    <h6>{{album.albumArtist.Name}}</h6>
-                                    <p>{{album.Name}}</p>
+                                    <a (click)='onAlbumClick(album.Id)' href="/album-player/?Id={{album.Id}}">  {{album.Name}}</a>
+                                    <p>{{album.albumArtist.Name}}</p>
                                 </div>
                             </div>
                         </div>

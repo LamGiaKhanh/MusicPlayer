@@ -61,6 +61,23 @@ namespace MusicPlayer.Controllers
             return result;
         }
 
+        [HttpGet("track/player/{query}")]
+        public async Task<ActionResult<object>> GetSpecifyTrack(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"/track/{query}"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
+
+
 
         [HttpGet("Chart")]
         public async Task<ActionResult<object>> GetCharts(string type)

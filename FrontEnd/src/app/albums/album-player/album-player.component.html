@@ -1,39 +1,40 @@
 <!-- ##### Breadcumb Area Start ##### -->
-<section class="breadcumb-area bg-img bg-overlay mb-4" style="background-image: url(../../assets/img/bg-img/breadcumb3.jpg);">
-    <div class="bradcumbContent">
-        <p>Album Player</p>
-        <h2>Nhaccuatoy</h2>
-    </div>
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url({{this.albumDetail.albumArtist.pictureXL}});">
 </section>
 <!-- ##### Breadcumb Area End ##### -->
-<!-- ##### Add Area Start ##### -->
-<div class="add-area mb-100 justify-content-center ">
-    <div class="container">
-        <div class="row">
-            <div class="col-3 placeholder"> 
-            </div>
-            <div class="col-lg-6 ">
-                <div class="adds text-center">
-                    <img class="img-fluid mt-4" src="{{this.albumDetail.coverBig}}" alt="">
-                    <h2 class="style-2 ">{{this.albumDetail.Name}}</h2>
-                    <p class="style-2  ">{{this.albumDetail.albumArtist.Name}}</p>
-                </div>
-            </div>
-            
-        </div>
-       
-    </div>
-</div>
-<!-- ##### Add Area End ##### -->
 
-<section class="miscellaneous-area ">
+<section class="miscellaneous-area bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url({{this.albumDetail.coverXL}});">
     <div class="container">
+        
         <div class="row">
             <div class="col-12 col-lg-12" >
-                <div class="weeks-top-area mb-100"  >
+                <div class="new-hits-area ">
+                    <div class="bradcumbContent">
+                        <p>Album Player</p>
+                        <h2>Nhaccuatoy</h2>
+                    </div>
+                    <!-- ##### Add Area Start ##### -->
+                    <div class="add-area justify-content-center ">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3 placeholder"> 
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="adds text-center">
+                                        <img class="img-fluid mt-4" src="{{this.albumDetail.coverBig}}" alt="">
+                                        <h2 class="style-2 ">{{this.albumDetail.Name}}</h2>
+                                        <p class="style-2  ">{{this.albumDetail.albumArtist.Name}}</p>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <!-- ##### Add Area End ##### -->
+
                     <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
                         <p>List of Track</p>
-                        <h2>{{this.albumDetail.Name}}</h2>
                     </div>
                     <div class="single-top-item d-flex wow fadeInUp" *ngFor='let track of listTracks' data-wow-delay="100ms">
                         <div class="content- col-12 col-lg-6">
