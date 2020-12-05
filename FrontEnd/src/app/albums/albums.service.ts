@@ -11,7 +11,7 @@ export class AlbumsService {
   public getAlbumList = async (query) => {
     try 
     {
-      let url = ApiService.backendHost + `/api/Deezer/album/${query}`;
+      let url = ApiService.backendHost + `/api/Deezer/search/album/${query}`;
       let r = await this.http.get<any>(url).toPromise() as any;
       return r.data;
     }

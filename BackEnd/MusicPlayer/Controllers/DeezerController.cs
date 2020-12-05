@@ -13,7 +13,7 @@ namespace MusicPlayer.Controllers
     [ApiController]
     public class DeezerController : ControllerBase
     {
-        [HttpGet("{query}")]
+        [HttpGet("search/track/{query}")]
         public async Task<ActionResult<object>> SearchAutoCompletes(string query)
         {
             object result;
@@ -28,8 +28,71 @@ namespace MusicPlayer.Controllers
             }
             return result;
         }
+        [HttpGet("playlist/{query}")]
+        public async Task<ActionResult<object>> GetPlaylist(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"playlist/{query}"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
 
-        [HttpGet("album/{query}")]
+        [HttpGet("playlist/player/{query}")]
+        public async Task<ActionResult<object>> GetTrackinPlaylist(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"playlist/{query}/tracks"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
+
+        [HttpGet("search/playlist/{query}")]
+        public async Task<ActionResult<object>> SearchPlaylist(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/playlist/autocomplete?limit=20&q={query}"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
+
+        [HttpGet("search/playlist/100/{query}")]
+        public async Task<ActionResult<object>> Search100Playlist(string query)
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/playlist/autocomplete?limit=20&q=100%%20{query}"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
+        }
+
+        [HttpGet("search/album/{query}")]
         public async Task<ActionResult<object>> Get3TracksAlbum(string query)
         {
             object result;
@@ -79,7 +142,7 @@ namespace MusicPlayer.Controllers
 
 
 
-        [HttpGet("Chart")]
+        [HttpGet("chart")]
         public async Task<ActionResult<object>> GetCharts(string type)
         {
             object result;

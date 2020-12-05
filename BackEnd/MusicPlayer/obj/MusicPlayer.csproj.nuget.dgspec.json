@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\KHANH\\iMusic\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {}
+    "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {}
   },
   "projects": {
-    "D:\\KHANH\\iMusic\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {
+    "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\KHANH\\iMusic\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
+        "projectUniqueName": "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
         "projectName": "MusicPlayer",
-        "projectPath": "D:\\KHANH\\iMusic\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\KHANH\\iMusic\\MusicPlayer\\BackEnd\\MusicPlayer\\obj\\",
+        "projectPath": "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
+        "packagesPath": "C:\\Users\\lamgi\\.nuget\\packages\\",
+        "outputPath": "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lamgi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

@@ -7,6 +7,7 @@ import { TrackPlayerComponent } from './tracks/track-player/track-player.compone
 import { RegisterComponent } from './register/register.component';
 import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
 import { TracksComponent } from './tracks/tracks.component';
+import { PlaylistPlayerComponent } from './tracks/playlist-player/playlist-player.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'album-player',             component: AlbumPlayerComponent },
   { path: 'tracks',             component: TracksComponent },
   { path: 'track-player',             component: TrackPlayerComponent },
+  { path: 'playlist-player',             component: PlaylistPlayerComponent },
   { path: '',             component: IndexComponent }
 ];
 

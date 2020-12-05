@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Album } from '../model/model-album';
 import { AlbumsService } from './albums.service';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular/router';
+import { IndexService } from '../index/index.service';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular
 export class AlbumsComponent implements OnInit {
   listAlbum: Array<Album> = [];
   albumDataset: any[];
-  constructor(private service: AlbumsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private service: AlbumsService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -51,44 +52,54 @@ export class AlbumsComponent implements OnInit {
 
   
   public getAlbumList = async () => {
-    try{
-    const list = await this.service.getAlbumList('adele') as any;
-    if (list) 
+    try
     {
-      for (let i = 0; i < 3; i++) 
-      {  
-        this.listAlbum.push(this.initAlbum(list[i]));
-        
+      const list = await this.service.getAlbumList('adele') as any;
+      if (list) 
+      {
+        for (let i = 0; i < 3; i++) 
+        {  
+          this.listAlbum.push(this.initAlbum(list[i]));
+          
+        }
       }
-    }
-    const list2 = await this.service.getAlbumList('post malone') as any;
-    if (list2) 
-    {
-      for (let i = 0; i < 3; i++) 
-      {  
-        this.listAlbum.push(this.initAlbum(list2[i]));
-        
+      const list2 = await this.service.getAlbumList('post malone') as any;
+      if (list2) 
+      {
+        for (let i = 0; i < 3; i++) 
+        {  
+          this.listAlbum.push(this.initAlbum(list2[i]));
+          
+        }
       }
-    }
-    const list3 = await this.service.getAlbumList('drake') as any;
-    if (list3) 
-    {
-      for (let i = 0; i < 3; i++) 
-      {  
-        this.listAlbum.push(this.initAlbum(list3[i]));
-        
+      const list3 = await this.service.getAlbumList('drake') as any;
+      if (list3) 
+      {
+        for (let i = 0; i < 3; i++) 
+        {  
+          this.listAlbum.push(this.initAlbum(list3[i]));
+          
+        }
       }
-    }
-    const list4 = await this.service.getAlbumList('eminem') as any;
-    if (list4) 
-    {
-      for (let i = 0; i < 3; i++) 
-      {  
-        this.listAlbum.push(this.initAlbum(list4[i]));
-        
+      const list4 = await this.service.getAlbumList('eminem') as any;
+      if (list4) 
+      {
+        for (let i = 0; i < 3; i++) 
+        {  
+          this.listAlbum.push(this.initAlbum(list4[i]));
+          
+        }
       }
-    }
-    return this.listAlbum;
+      const list5 = await this.globalService.getChartList() as any;
+      if (list5)
+      {
+        for (let i = 0; i < list5.albums.data.length; i++) 
+        {  
+          this.listAlbum.push(this.initAlbum(list5.albums.data[i]));
+          
+        }
+      }
+      return this.listAlbum;
     }
     catch(e)
     {

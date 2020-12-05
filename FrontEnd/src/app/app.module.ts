@@ -15,14 +15,14 @@ import { LoginComponent } from './login/login.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrackPlayerComponent } from './tracks/track-player/track-player.component';
 import { RegisterComponent } from './register/register.component';
-import { VimeModule } from 'node_modules/@vime/angular'
-
+import { VimeModule } from 'node_modules/@vime/angular';
 //Services
 import { ApiService } from './api.service';
 import { AuthenticationService } from './authentication/authentication.service';
 import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.component';
 import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
 import { TracksComponent } from './tracks/tracks.component';
+import { PlaylistPlayerComponent } from './tracks/playlist-player/playlist-player.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,8 @@ import { TracksComponent } from './tracks/tracks.component';
     RegisterComponent,
     TapSidesToSeekComponent,
     AlbumPlayerComponent,
-    TracksComponent
+    TracksComponent,
+    PlaylistPlayerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,38 +1,62 @@
 <!-- ##### Breadcumb Area Start ##### -->
-<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(../../assets/img/bg-img/breadcumb3.jpg);">
-    <div class="bradcumbContent">
-        <p>See what’s new</p>
-        <h2>Latest Albums</h2>
-    </div>
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url({{this.playlistDetail.pictureXL}});">
 </section>
 <!-- ##### Breadcumb Area End ##### -->
 
-<!-- ##### Album Catagory Area Start ##### -->
-<section class="section-padding-100-0">
+<section class="miscellaneous-area bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url({{this.playlistDetail.pictureXL}});">
     <div class="container">
+        
         <div class="row">
-            <div class="row pd-4" > 
-                <!-- Single Album -->
-                <div class="col-12 col-sm-4 col-md-3 col-lg-2 single-album-item ${{album.Name.substr(0,1)}} ${{album.Name.substr((album.Name).length - 1,1)}}" *ngFor='let album of listAlbum'>
-                    <div class="single-album">
-                        <img src="{{album.coverBig}}" alt="">
-                        <a (click)='onClick(album.Id)' href="/album-player/?Id={{album.Id}}"> 
-                            <div class="album-info">
-                               <h5>{{album.Name}}</h5>
-                                <p>{{album.albumArtist.Name}}</p>
-                            </div>
-                        </a>
+            <div class="col-12 col-lg-12" >
+                <div class="new-hits-area ">
+                    <div class="bradcumbContent">
+                        <p>Playlist Player</p>
+                        <h2>Nhaccuatoy</h2>
                     </div>
-                </div>
+                    <!-- ##### Add Area Start ##### -->
+                    <div class="add-area justify-content-center ">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3 placeholder"> 
+                                </div>
+                                <div class="col-lg-6 ">
+                                    <div class="adds text-center">
+                                        <img class="img-fluid mt-4" src="{{this.playlistDetail.pictureBig}}" alt="">
+                                        <h2 class="style-2 ">{{this.playlistDetail.Title}}</h2>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <!-- ##### Add Area End ##### -->
 
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
+                        <p>List of Track:</p>
+                    </div>
+                    <div class="single-top-item d-flex wow fadeInUp" *ngFor='let track of listTracks; last as last' data-wow-delay="100ms">
+                        <div class="content- col-12 col-lg-6 justify-content-center">
+                            <h5>{{track.Title}}</h5>
+                            <p class="pb-2 mb-4" >{{track.tracksArtist.Name}} </p>
+                        </div>
+                        <div class="col-12 col-lg-4" >
+                            <vime-player controls>
+                                <vime-audio cross-origin preload>
+                                <source data-src="{{track.Preview}}" type="audio/mp3" />
+                                </vime-audio>
+                            </vime-player>
+                        </div>
+                        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+                        
+                    </div>
+                    
+
+                </div>
             </div>
         </div>
-        
     </div>
 </section>
-<!-- ##### Album Catagory Area End ##### -->
-<div class="placeholder"></div>
-
 <!-- ##### Contact Area Start ##### -->
 <section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(../../assets/img/bg-img/bg-2.jpg);">
     <div class="container">

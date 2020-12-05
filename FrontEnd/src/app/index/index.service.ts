@@ -25,7 +25,7 @@ export class IndexService {
   public getSearchList = async (query) => {
     try 
     {
-      let url = ApiService.backendHost + `/api/Deezer/${query}`;
+      let url = ApiService.backendHost + `/api/Deezer/search/track/${query}`;
       let r = await this.http.get<any>(url).toPromise() as any;
       return r.data;
     }

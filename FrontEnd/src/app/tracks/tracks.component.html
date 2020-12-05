@@ -1,1 +1,127 @@
-<p>tracks works!</p>
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(../../assets/img/bg-img/breadcumb3.jpg);">
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<section class="miscellaneous-area bg-img bg-overlay bg-fixed has-bg-img" >
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-12 col-lg-12" >
+                <div class="new-hits-area ">
+                    <div class="bradcumbContent">
+                        <p>Tracks list</p>
+                        <h2>Nhaccuatoy</h2>
+                    </div>
+                    <!--Top 10 playlist Start Area-->
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
+                        <h2>Top 10 Playlists</h2>
+                    </div>
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor='let playlist of indexPlaylist'>
+                            <div class="single-album">
+                                <a href="playlist-player/" (click)='onPlaylistClick(playlist.Id)' href="/playlist-player/?Id={{playlist.Id}}">
+                                    <img class="d-flex" src="{{playlist.pictureBig}}" alt="">
+                                    <div class="album-info">
+                                        <h5>{{playlist.Title}}</h5>
+                                        <p>{{playlist.numberTrack}} tracks</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-template>  
+                      </owl-carousel-o>
+                    <!--Top 10 playlist End Area-->
+                    <hr>
+                    <!--Top 10 2020 playlist Start Area-->
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
+                        <h2>Best of 2020 Playlists</h2>
+                    </div>
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor='let playlist of best2020Playlist'>
+                            <div class="single-album">
+                                <a href="playlist-player/" (click)='onPlaylistClick(playlist.Id)' href="/playlist-player/?Id={{playlist.Id}}">
+                                    <img class="d-flex" src="{{playlist.pictureBig}}" alt="">
+                                    <div class="album-info">
+                                        <h5>{{playlist.Title}}</h5>
+                                        <p>{{playlist.numberTrack}} tracks</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-template>  
+                      </owl-carousel-o>
+                    <!--Top 10 2020 playlist End Area-->
+
+                    <!--Top 10 on repeat playlist Start Area-->
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
+                        <h2>On Repeat</h2>
+                    </div>
+                    <owl-carousel-o [options]="customOptions">
+                        <ng-template carouselSlide *ngFor='let playlist of onRepeatPlaylist'>
+                            <div class="single-album">
+                                <a href="playlist-player/" (click)='onPlaylistClick(playlist.Id)' href="/playlist-player/?Id={{playlist.Id}}">  
+                                    <img class="d-flex" src="{{playlist.pictureBig}}" alt="">
+                                    <div class="album-info">
+                                        <h5>{{playlist.Title}}</h5>
+                                        <p>{{playlist.numberTrack}} tracks</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </ng-template>  
+                      </owl-carousel-o>
+                    <!--Top 10 on repeat playlist End Area-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area Start ##### -->
+<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(../../assets/img/bg-img/bg-2.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white">
+                    <p>See what’s new</p>
+                    <h2>Get In Touch</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Contact Form Area -->
+                <div class="contact-form-area">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area End ##### -->
