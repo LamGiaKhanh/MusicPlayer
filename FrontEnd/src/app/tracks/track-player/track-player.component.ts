@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Track } from 'src/app/model/model-track';
 import { TrackPlayerService } from './track-player.service';
 import { IndexService } from '../../index/index.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from 'src/app/api.service';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-track-player',
@@ -11,24 +15,38 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrls: ['./track-player.component.scss']
 })
 export class TrackPlayerComponent implements OnInit {
-  track: Track;
+  track: Track = {
+    Id: 0, 
+    Title: '',
+    Link: '',
+    Preview: '',
+    md5image: '',
+    tracksArtist: {Id: 0, Name: '', pictureXL: '', pictureBig: '', pictureMedium: '', pictureSmall: '', Picture: ''},
+    tracksAlbum: {Id: 0, Name: '', coverBig: '', coverMedium: '', coverSmall: '', coverXL: '', Cover: '', trackList: [], albumArtist: null}
+  }
+
   tracks: Array<Track>;
   trackId;
   trackDataset: any;
   slideDataset : any;
-  constructor(private service: TrackPlayerService, private globalService: IndexService, private router: Router, private route: ActivatedRoute ) { }
+  isLoaded: boolean = false;
 
-  ngOnInit(): void {
+  constructor(private domSanitizer: DomSanitizer, private http: HttpClient, public auth: AuthenticationService, private service: TrackPlayerService, private globalService: IndexService, private router: Router, private route: ActivatedRoute ) 
+  {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
+  }
+
+  async ngOnInit(): Promise<void> {
     this.route.queryParams
     .subscribe(params => {
       this.trackId = params["Id"] || null;
     }); 
-    this.reload();
+    await this.reload();
+    this.isLoaded = true;
   }
 
   async reload()
   {
-    this.track = new Track();
     this.tracks = new Array<Track>();
     this.tracks = [];
     this.slideDataset =[];
@@ -46,14 +64,8 @@ export class TrackPlayerComponent implements OnInit {
     dataTrack.Preview = track.preview;
     dataTrack.md5image = track.md5image;
     
-    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.name, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
+    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.title, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
     dataTrack.tracksArtist = {Id: track.artist.id, Name: track.artist.name, pictureBig:track.artist.picture_big, pictureMedium:track.artist.picture_medium, pictureSmall:track.artist.picture_small,pictureXL: track.artist.picture_xl, Picture: track.artist.picture};
-    // dataTrack.tracksAlbum.Id = track.album.id;
-    // dataTrack.tracksAlbum.Name = track.album.name;
-    // dataTrack.tracksAlbum.Cover = track.album.cover;
-    // dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
-    // dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
-    // dataTrack.tracksAlbum.coverBig = track.album.cover_big;
     return dataTrack;
   }
 
@@ -118,4 +130,37 @@ export class TrackPlayerComponent implements OnInit {
     },
   }
 
+  async likeTrack(event: any, id: number)
+  {
+    if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
+    else 
+    {
+      if (event.currentTarget.classList.contains('liked'))
+      {
+        let url = ApiService.backendHost + `/api/FavoriteTracks/${this.auth.currentAccountValue.id}/${id}`;
+        try 
+        {
+          await this.http.delete(url).toPromise();
+          this.auth.updateTrack(id, false);
+        }
+        catch (e) { console.log(e) }
+      }
+      else 
+      {
+        let postTrack = {id: this.track.Id, title: this.track.Title, album: this.track.tracksAlbum.Name, albumId: this.track.tracksAlbum.Id, duration: 30, artist: this.track.tracksArtist.Name};
+        try 
+        {
+          let url = ApiService.backendHost + `/api/FavoriteTracks`;
+          let postObject = {accountId: this.auth.currentAccountValue.id, track: postTrack}
+          await this.http.post(url, postObject).toPromise();
+          this.auth.updateTrack(id, true);
+        }
+        catch (e) { console.log(e); }
+      }
+    }
+  }
+  getSource(url: string): SafeUrl
+  {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 }

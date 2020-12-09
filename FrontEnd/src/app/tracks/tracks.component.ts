@@ -7,6 +7,9 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Playlist } from '../model/model-playlist';
 import { TracksService } from './tracks.service';
 import { IndexService } from '../index/index.service';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { ApiService } from '../api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-tracks',
@@ -23,7 +26,7 @@ export class TracksComponent implements OnInit {
   onRepeatPlaylist: Array<Playlist>  = [];
   onRepeatPlaylistDataset: any;
 
-  constructor(private service: TracksService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: TracksService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.reload();
@@ -151,5 +154,37 @@ export class TracksComponent implements OnInit {
         items: 4
       }
     },
+  }
+
+  async likePlaylist(event: any, id: number)
+  {
+    if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
+    else 
+    {
+      if (event.currentTarget.classList.contains('liked'))
+      {
+        let url = ApiService.backendHost + `/api/FavoritePlaylists/${this.auth.currentAccountValue.id}/${id}`;
+        try 
+        {
+          await this.http.delete(url).toPromise();
+          this.auth.updateLikedPlaylist(id, false);
+        }
+        catch (e) { console.log(e) }
+      }
+      else 
+      {
+        let playlist = this.indexPlaylist.find(p => p.Id == id)? this.indexPlaylist.find(p => p.Id == id): this.best2020Playlist.find(p => p.Id == id);
+        playlist = playlist? playlist: this.onRepeatPlaylist.find(p => p.Id == id);
+
+        let postPlaylist = { accountId: this.auth.currentAccountValue.id, playlistId: playlist.Id, name: playlist.Title, image: playlist.pictureBig, createdDate: new Date()};
+        try 
+        {
+          let url = ApiService.backendHost + `/api/FavoritePlaylists`;
+          await this.http.post(url, postPlaylist).toPromise();
+          this.auth.updateLikedPlaylist(id, true);
+        }
+        catch (e) { console.log(e); }
+      }
+    }
   }
 }

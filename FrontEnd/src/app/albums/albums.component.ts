@@ -3,6 +3,9 @@ import { Album } from '../model/model-album';
 import { AlbumsService } from './albums.service';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular/router';
 import { IndexService } from '../index/index.service';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { ApiService } from '../api.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -13,7 +16,9 @@ import { IndexService } from '../index/index.service';
 export class AlbumsComponent implements OnInit {
   listAlbum: Array<Album> = [];
   albumDataset: any[];
-  constructor(private service: AlbumsService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
+  isLoaded: boolean = false;
+
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: AlbumsService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -24,7 +29,7 @@ export class AlbumsComponent implements OnInit {
     this.listAlbum = new Array<Album>();
     this.listAlbum = []
     this.albumDataset = await this.getAlbumList();
-
+    this.isLoaded = true;
 
   }
 
@@ -108,5 +113,37 @@ export class AlbumsComponent implements OnInit {
   }
   public onClick = async (query) => {
     this.router.navigate(['/album-player/'], {queryParams: {id: query}});
+  }
+
+  async likeAlbum(event: any, id: number)
+  {
+    if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
+    else 
+    {
+      if (event.currentTarget.classList.contains('liked'))
+      {
+        let url = ApiService.backendHost + `/api/FavoriteAlbums/${this.auth.currentAccountValue.id}/${id}`;
+        try 
+        {
+          console.log(url)
+          await this.http.delete(url).toPromise();
+          this.auth.updateAlbum(id, false);
+        }
+        catch (e) { console.log(e) }
+      }
+      else 
+      {
+        let url = ApiService.backendHost + `/api/FavoriteAlbums`;
+        let albumInList = this.listAlbum.find(a => a.Id == id);
+        let postAlbum = {id: albumInList.Id, cover: albumInList.coverBig, artist: albumInList.albumArtist.Name, title: albumInList.Name}
+        try 
+        {
+          let postObject = {accountId: this.auth.currentAccountValue.id, album: postAlbum}
+          await this.http.post(url, postObject).toPromise();
+          this.auth.updateAlbum(Number(id), true);
+        }
+        catch (e) { console.log(e); }
+      }
+    }
   }
 }

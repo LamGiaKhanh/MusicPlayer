@@ -9,7 +9,7 @@ namespace MusicPlayer.Models
     public class Playlist
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
         public bool IsPrivate { get; set; }

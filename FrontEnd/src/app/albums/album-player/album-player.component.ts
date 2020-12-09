@@ -4,6 +4,9 @@ import { AlbumPlayerService } from './album-player.service';
 import { AlbumsService  } from '../albums.service';
 import { Track } from 'src/app/model/model-track';
 import { Album } from 'src/app/model/model-album';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
+import { ApiService } from 'src/app/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-album-player',
@@ -14,7 +17,7 @@ export class AlbumPlayerComponent implements OnInit {
   albumId;
   listTracks: Array<Track>;
   albumDetail: Album;
-  constructor(private service: AlbumPlayerService, private GAService: AlbumsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: AlbumPlayerService, private GAService: AlbumsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -31,7 +34,6 @@ export class AlbumPlayerComponent implements OnInit {
     this.albumDetail = new Album();
 
     this.loadTracks(this.albumId);
-    console.log(this.listTracks[1].Title);
   }
 
   initAlbum(album: any): Album
@@ -45,14 +47,6 @@ export class AlbumPlayerComponent implements OnInit {
     dataAlbum.coverSmall = album.cover_small;
     dataAlbum.coverXL = album.cover_xl;
     dataAlbum.albumArtist = {Id:  album.artist.id, Name: album.artist.name, Picture: album.artist.picture, pictureSmall: album.artist.picture_small, pictureMedium: album.artist.picture_medium, pictureBig: album.artist.picture_big, pictureXL: album.artist.picture_xl }
-    // dataAlbum.albumArtist.Id = album.artist.id;
-    // dataAlbum.albumArtist.Name = album.artist.name;
-    // dataAlbum.albumArtist.Picture = album.artist.picture;
-    // dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
-    // dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
-    // dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
-    // dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
-    //trackList api: https://api.deezer.com/album/{{id}}/tracks
     return dataAlbum;
   }
   initTrack(track: any): Track
@@ -64,12 +58,6 @@ export class AlbumPlayerComponent implements OnInit {
     dataTrack.Preview = track.preview;
     dataTrack.md5image = track.md5image;
     dataTrack.tracksArtist = {Id: track.artist.id, Name: track.artist.name, pictureBig:track.artist.picture_big, pictureMedium:track.artist.picture_medium, pictureSmall:track.artist.picture_small,pictureXL: track.artist.picture_xl, Picture: track.artist.picture};
-    // dataTrack.tracksAlbum.Id = track.album.id;
-    // dataTrack.tracksAlbum.Name = track.album.name;
-    // dataTrack.tracksAlbum.Cover = track.album.cover;
-    // dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
-    // dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
-    // dataTrack.tracksAlbum.coverBig = track.album.cover_big;
     return dataTrack;
   }
 
@@ -86,6 +74,36 @@ export class AlbumPlayerComponent implements OnInit {
     return this.listTracks;
   }
 
+  async likeTrack(event: any, id: number)
+  {
+    if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
+    else 
+    {
+      if (event.currentTarget.classList.contains('liked'))
+      {
+        let url = ApiService.backendHost + `/api/FavoriteTracks/${this.auth.currentAccountValue.id}/${id}`;
+        try 
+        {
+          await this.http.delete(url).toPromise();
+          this.auth.updateTrack(id, false);
+        }
+        catch (e) { console.log(e) }
+      }
+      else 
+      {
+        let url = ApiService.backendHost + `/api/FavoriteTracks`;
+        let trackInList = this.listTracks.find(a => a.Id == id);
+        let postTrack = {id: trackInList.Id, title: trackInList.Title, album: this.albumDetail.Name, albumId: this.albumDetail.Id, duration: 30, artist: this.albumDetail.albumArtist.Name};
+        try 
+        {
+          let postObject = {accountId: this.auth.currentAccountValue.id, track: postTrack}
+          await this.http.post(url, postObject).toPromise();
+          this.auth.updateTrack(id, true);
+        }
+        catch (e) { console.log(e); }
+      }
+    }
+  }
   
 
 }

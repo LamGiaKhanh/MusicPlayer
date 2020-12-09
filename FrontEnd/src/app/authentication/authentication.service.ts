@@ -21,7 +21,6 @@ export class AuthenticationService
 
    constructor(private http: HttpClient) 
    {
-       console.log("auth");
        let account = localStorage.getItem(this.account_storage);
        if (account == null) 
        {

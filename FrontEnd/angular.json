@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/assets/scss/style.scss",
               "node_modules/plyr/dist/plyr.css"
             ],
@@ -108,10 +109,10 @@
               "node_modules/plyr/dist/plyr.css"
             ],
             "scripts": [
-              "src/assets/js/bootstrap/bootstrap.min.js",
               "src/assets/js/jquery/jquery-2.2.4.min.js",
-              "src/assets/js/plugins/plugins.js",
               "src/assets/js/bootstrap/popper.min.js",
+              "src/assets/js/bootstrap/bootstrap.min.js",            
+              "src/assets/js/plugins/plugins.js",
               "src/assets/js/active.js"
             ]
           }

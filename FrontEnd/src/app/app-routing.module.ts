@@ -8,18 +8,22 @@ import { RegisterComponent } from './register/register.component';
 import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { PlaylistPlayerComponent } from './tracks/playlist-player/playlist-player.component';
+import { SearchComponent } from './search/search.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes: Routes = [
   { path: 'index',             component: IndexComponent },
   { path: 'login',             component: LoginComponent },
-  { path: 'register',             component: RegisterComponent },
+  { path: 'register',           component: RegisterComponent },
   { path: 'albums',             component: AlbumsComponent },
-  { path: 'album-player',             component: AlbumPlayerComponent },
+  { path: 'album-player',       component: AlbumPlayerComponent },
   { path: 'tracks',             component: TracksComponent },
-  { path: 'track-player',             component: TrackPlayerComponent },
+  { path: 'track-player',       component: TrackPlayerComponent },
   { path: 'playlist-player',             component: PlaylistPlayerComponent },
-  { path: '',             component: IndexComponent }
+  { path: 'search',             component: SearchComponent },
+  { path: '',             component: IndexComponent },
+  { path: 'change-password', component: ChangePasswordComponent },
 ];
 
 @NgModule({

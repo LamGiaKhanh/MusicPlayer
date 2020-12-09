@@ -15,34 +15,42 @@
                         <span class="navbarToggler"><span></span><span></span><span></span></span>
                     </div>
 
+                
                     <!-- Menu -->
-                    <div class="classy-menu">
-
-                        <!-- Close Button -->
-                        <div class="classycloseIcon">
-                            <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+                    <div class="classy-menu row align-items-center">
+                        <div class="input-group col">
+                            <input (keyup.enter)="search()" class="form-control py-2 rounded-pill mr-1 pr-5 bg-transparent border border-light text-light" placeholder="Search tracks, albums, ..." type="search" [(ngModel)]="query">
+                            <span class="input-group-append" style="z-index: 10;">
+                                <button (click)="search()" class="btn rounded-pill border-0 ml-n5 text-light" type="button"><i class="fa fa-search"></i></button>
+                            </span>
                         </div>
 
                         <!-- Nav Start -->
-                        <div class="classynav">
+                        <div class="classynav col-auto">
+                            
                             <ul>
                                 <li><a href="#">Home</a></li>
                                 <li><a href="/albums">Albums</a></li>
-                                <li><a href="/tracks">Tracks</a></li>
-                                <li><a href="/albums">News</a></li>
-                                <li><a href="/albums">Contact</a></li>
+                                <li><a href="/tracks">Playlists</a></li>
+                                <!-- <li><a href="/albums">Search</a></li>
+                                <li><a href="/albums">Contact</a></li> -->
                             </ul>
 
                             <!-- Login/Register & Cart Button -->
                             <div class="login-register-cart-button d-flex align-items-center">
                                 <!-- Login/Register -->
-                                <div class="login-register-btn mr-50">
+                                <div class="login-register-btn mr-50" *ngIf="auth.currentAccountValue == null">
                                     <a href="/login" id="loginBtn">Login / Register</a>
                                 </div>
 
-                                <!-- Cart Button -->
-                                <div class="cart-btn">
-                                    <p><span class="icon-shopping-cart"></span> <span class="quantity">1</span></p>
+                                <div class="dropdown" *ngIf="auth.currentAccountValue != null">
+                                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                      <a class="dropdown-item" href="/change-password">Change password</a>
+                                      <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Log out</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

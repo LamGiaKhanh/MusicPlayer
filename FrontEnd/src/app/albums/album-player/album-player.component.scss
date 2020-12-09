@@ -1,0 +1,17 @@
+.fa-heart
+{
+    color: white;
+    -webkit-text-stroke: 1px #000;
+    -webkit-text-fill-color: transparent;
+}
+.fa-heart:hover
+{
+    -webkit-text-fill-color:  #e63757;
+    -webkit-text-stroke: 0px #000;
+    cursor: pointer;
+}
+i.liked 
+{
+    -webkit-text-fill-color:  #e63757 !important;
+    -webkit-text-stroke: 0px #000;
+}

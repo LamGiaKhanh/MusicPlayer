@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace MusicPlayer.Controllers
 {
@@ -156,6 +157,47 @@ namespace MusicPlayer.Controllers
                 }
             }
             return result;
+        }
+
+        [HttpGet("search/{query}")]
+        public async Task<ActionResult<object>> Search(string query)
+        {
+            object albums;
+            object tracks;
+            object playlists;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/track?q={query}&limit=10"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<JObject>(apiResponse);
+                    tracks = result["data"];
+                }
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/album?q={query}&limit=10"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<JObject>(apiResponse);
+                    albums = result["data"];
+                }
+            }
+
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + $"search/playlist?q={query}&limit=10"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<JObject>(apiResponse);
+                    playlists = result["data"];
+                }
+            }
+            return new { Tracks = tracks, Albums = albums, Playlists = playlists};
         }
     }
 }

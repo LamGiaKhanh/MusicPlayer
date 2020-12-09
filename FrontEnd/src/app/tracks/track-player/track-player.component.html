@@ -10,7 +10,7 @@
         <span></span>
         <span></span>
     </div>
-    <div class="container ">
+    <div class="container" *ngIf="isLoaded">
         
         <div class="row align-items-end">
             <div class="col-12 col-md-5 col-lg-4">
@@ -25,15 +25,18 @@
                         <p>Track: </p>
                         <h2 data-animation="fadeInUp" data-delay="500ms" >{{track.Title}}</h2>
                         <p data-animation="fadeInUp" data-delay="500ms">{{track.tracksArtist.Name}}</p>
+                        <i class="fa fa-heart" (click)="likeTrack($event, track.Id)" [ngClass]="{'liked': auth.activityStorage.trackIds.indexOf(track.Id) > -1}"></i>
                     </div>
-                    <div class="song-name">
-                        <p>{{track.Title}}</p>
-                    </div>
-                    <vime-player controls>
-                        <vime-audio cross-origin preload>
-                        <source data-src="{{track.Preview}}" type="audio/mp3"/>
+                    <div class="song-name mb-2"><a class="text-light" [routerLink]="['/album-player']" [queryParams]="{ Id: track.tracksAlbum.Id }">{{track.tracksAlbum.Name}}</a></div>
+                    
+                    <!-- <vime-player controls>
+                        <vime-audio>
+                            <source data-src="{{track.Preview}}" type="audio/mp3"/>
                         </vime-audio>
-                    </vime-player>
+                    </vime-player> -->
+
+                    <audio style="width: 100%" preload controls name="media"><source [src]="getSource(track.Preview)" type="audio/mpeg"></audio>
+
                 </div>
             </div>
         </div>
@@ -62,13 +65,13 @@
 
             <ng-template carouselSlide *ngFor='let track of tracks'>
                 <div class="single-album">
-                    <a href="track-player/" (click)='onTrackClick(track.Id)' href="/track-player/?Id={{track.Id}}">
+                    <a [routerLink]="['/track-player']" [queryParams]="{ Id: track.Id }">
                         <img class="d-flex" src="{{track.tracksAlbum.coverBig}}" alt="">
                         <div class="album-info">
                             <h5>{{track.Title}}</h5>
                             <p>{{track.tracksArtist.Name}}</p>
                         </div>
-                </a>
+                    </a>
                 </div>
             </ng-template>  
 

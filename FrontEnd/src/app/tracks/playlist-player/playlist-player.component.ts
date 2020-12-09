@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from 'src/app/api.service';
+import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { Playlist } from 'src/app/model/model-playlist';
 import { Track } from 'src/app/model/model-track';
 import { TracksService } from '../tracks.service';
@@ -14,7 +17,7 @@ export class PlaylistPlayerComponent implements OnInit {
   playlistId;
   listTracks: Array<Track>;
   playlistDetail: Playlist;
-  constructor(private service: PlaylistPlayerService, private trackService: TracksService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: PlaylistPlayerService, private trackService: TracksService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -44,12 +47,7 @@ export class PlaylistPlayerComponent implements OnInit {
     dataTrack.Preview = track.preview;
     dataTrack.md5image = track.md5image;
     dataTrack.tracksArtist = {Id: track.artist.id, Name: track.artist.name, pictureBig:track.artist.picture_big, pictureMedium:track.artist.picture_medium, pictureSmall:track.artist.picture_small,pictureXL: track.artist.picture_xl, Picture: track.artist.picture};
-    // dataTrack.tracksAlbum.Id = track.album.id;
-    // dataTrack.tracksAlbum.Name = track.album.name;
-    // dataTrack.tracksAlbum.Cover = track.album.cover;
-    // dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
-    // dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
-    // dataTrack.tracksAlbum.coverBig = track.album.cover_big;
+    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.title, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
     return dataTrack;
   }
 
@@ -82,5 +80,35 @@ export class PlaylistPlayerComponent implements OnInit {
     return dataPlaylist;
   }
 
+  async likeTrack(event: any, id: number)
+  {
+    if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
+    else 
+    {
+      if (event.currentTarget.classList.contains('liked'))
+      {
+        let url = ApiService.backendHost + `/api/FavoriteTracks/${this.auth.currentAccountValue.id}/${id}`;
+        try 
+        {
+          await this.http.delete(url).toPromise();
+          this.auth.updateTrack(id, false);
+        }
+        catch (e) { console.log(e) }
+      }
+      else 
+      {
+        let url = ApiService.backendHost + `/api/FavoriteTracks`;
+        let trackInList = this.listTracks.find(a => a.Id == id);
+        let postTrack = {id: trackInList.Id, title: trackInList.Title, album: trackInList.tracksAlbum.Name, albumId: trackInList.tracksAlbum.Id, duration: 30, artist: trackInList.tracksArtist.Name};
+        try 
+        {
+          let postObject = {accountId: this.auth.currentAccountValue.id, track: postTrack}
+          await this.http.post(url, postObject).toPromise();
+          this.auth.updateTrack(id, true);
+        }
+        catch (e) { console.log(e); }
+      }
+    }
+  }
 
 }

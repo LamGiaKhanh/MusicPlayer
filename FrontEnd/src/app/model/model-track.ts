@@ -2,7 +2,7 @@ import { Album } from "./model-album";
 import { Artist } from "./model-artist";
 
 export class Track {
-    Id: string;
+    Id: number;
     Title: string;
     Link: string;
     Preview: string;

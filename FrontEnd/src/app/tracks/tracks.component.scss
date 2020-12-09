@@ -1,0 +1,30 @@
+.item .play-icon {
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    font-size: 60px;
+    color: #fff;
+    visibility: hidden;
+    opacity: .7;
+    line-height: 1;
+}
+.item:hover
+{
+    .play-icon
+    {
+        visibility: visible;
+        z-index: 10;
+    }
+    img 
+    {
+        filter: brightness(50%);
+    }
+}
+ 
+.item .play-icon:hover {
+    cursor: pointer;
+    opacity: 1;
+}
+i.liked {
+    color: #e63757!important;
+  }

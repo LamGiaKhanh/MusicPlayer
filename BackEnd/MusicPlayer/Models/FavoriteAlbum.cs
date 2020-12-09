@@ -10,7 +10,7 @@ namespace MusicPlayer.Models
         public Account Account { get; set; }
         public int AccountId { get; set; }
         public Album Album { get; set; }
-        public int AlbumId { get; set; }
+        public long AlbumId { get; set; }
         public DateTime CreatedDate { get; set; }
     }
 }

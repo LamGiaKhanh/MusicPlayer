@@ -32,26 +32,38 @@
                     </div>
                     <!-- ##### Add Area End ##### -->
 
-                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
-                        <p>List of Track:</p>
-                    </div>
-                    <div class="single-top-item d-flex wow fadeInUp" *ngFor='let track of listTracks; last as last' data-wow-delay="100ms">
-                        <div class="content- col-12 col-lg-6 justify-content-center">
-                            <h5>{{track.Title}}</h5>
-                            <p class="pb-2 mb-4" >{{track.tracksArtist.Name}} </p>
-                        </div>
-                        <div class="col-12 col-lg-4" >
-                            <vime-player controls>
-                                <vime-audio cross-origin preload>
-                                <source data-src="{{track.Preview}}" type="audio/mp3" />
-                                </vime-audio>
-                            </vime-player>
-                        </div>
-                        <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
-                        
-                    </div>
-                    
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms"><p>List of Track:</p></div>
 
+                    <!-- <div style="overflow-y: auto; max-height: 800px;">
+                        
+                    </div> -->
+                    <ng-container *ngFor='let track of listTracks; last as last; let i = index'>
+                        <div class="single-top-item d-flex wow fadeInUp" data-wow-delay="100ms">
+                            <div class="content- col-12 col-lg-6 justify-content-center">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <h6 style="margin-bottom: 0px !important;">{{i + 1}}. </h6>
+                                        <i class="fa fa-heart" (click)="likeTrack($event, track.Id)" [ngClass]="{'liked': auth.activityStorage.trackIds.indexOf(track.Id) > -1}"></i>
+                                    </div>
+                                    <div class="col-auto">
+                                        <h6>{{track.Title}}</h6>
+                                        <p>{{track.tracksArtist.Name}}</p>        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-4" >
+                                <vime-player controls>
+                                    <vime-audio cross-origin preload>
+                                    <source data-src="{{track.Preview}}" type="audio/mp3" />
+                                    </vime-audio>
+                                </vime-player>
+                            </div>
+                            
+                        </div>
+                        <!-- <mat-divider [inset]="true" *ngIf="!last"></mat-divider> -->
+                        <hr style="margin-top: 0rem !important" *ngIf="!last">
+                    </ng-container>
+                    
                 </div>
             </div>
         </div>

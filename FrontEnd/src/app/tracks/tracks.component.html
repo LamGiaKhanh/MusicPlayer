@@ -11,7 +11,7 @@
             <div class="col-12 col-lg-12" >
                 <div class="new-hits-area ">
                     <div class="bradcumbContent">
-                        <p>Tracks list</p>
+                        <p>Playlist list</p>
                         <h2>Nhaccuatoy</h2>
                     </div>
                     <!--Top 10 playlist Start Area-->
@@ -20,49 +20,49 @@
                     </div>
                     <owl-carousel-o [options]="customOptions">
                         <ng-template carouselSlide *ngFor='let playlist of indexPlaylist'>
-                            <div class="single-album">
-                                <a href="playlist-player/" (click)='onPlaylistClick(playlist.Id)' href="/playlist-player/?Id={{playlist.Id}}">
+                            <div class="single-album item">
+                                <i class="fa fa-heart play-icon" (click)="likePlaylist($event, playlist.Id)" [ngClass]="{'liked': auth.activityStorage.likedPlaylistIds.indexOf(playlist.Id) > -1}"></i>
+                                <a [routerLink]="['/playlist-player']" [queryParams]="{ Id: playlist.Id }">
                                     <img class="d-flex" src="{{playlist.pictureBig}}" alt="">
                                     <div class="album-info">
-                                        <h5>{{playlist.Title}}</h5>
+                                        <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{playlist.Title}}">{{playlist.Title}}</h5>
                                         <p>{{playlist.numberTrack}} tracks</p>
                                     </div>
                                 </a>
                             </div>
                         </ng-template>  
                       </owl-carousel-o>
-                    <!--Top 10 playlist End Area-->
-                    <hr>
+                      <hr>
+                    
                     <!--Top 10 2020 playlist Start Area-->
-                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
-                        <h2>Best of 2020 Playlists</h2>
-                    </div>
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms"><h2>Best of 2020 Playlists</h2></div>
                     <owl-carousel-o [options]="customOptions">
                         <ng-template carouselSlide *ngFor='let playlist of best2020Playlist'>
-                            <div class="single-album">
-                                <a href="playlist-player/" (click)='onPlaylistClick(playlist.Id)' href="/playlist-player/?Id={{playlist.Id}}">
+                            <div class="single-album item">
+                                <i class="fa fa-heart play-icon" (click)="likePlaylist($event, playlist.Id)" [ngClass]="{'liked': auth.activityStorage.likedPlaylistIds.indexOf(playlist.Id) > -1}"></i>
+                                <a [routerLink]="['/playlist-player']" [queryParams]="{ Id: playlist.Id }">
                                     <img class="d-flex" src="{{playlist.pictureBig}}" alt="">
                                     <div class="album-info">
-                                        <h5>{{playlist.Title}}</h5>
+                                        <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{playlist.Title}}">{{playlist.Title}}</h5>
                                         <p>{{playlist.numberTrack}} tracks</p>
                                     </div>
                                 </a>
                             </div>
                         </ng-template>  
-                      </owl-carousel-o>
-                    <!--Top 10 2020 playlist End Area-->
+                    </owl-carousel-o>
+                    <hr>
 
                     <!--Top 10 on repeat playlist Start Area-->
-                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms">
-                        <h2>On Repeat</h2>
+                    <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms"><h2>On Repeat</h2>
                     </div>
                     <owl-carousel-o [options]="customOptions">
                         <ng-template carouselSlide *ngFor='let playlist of onRepeatPlaylist'>
-                            <div class="single-album">
-                                <a href="playlist-player/" (click)='onPlaylistClick(playlist.Id)' href="/playlist-player/?Id={{playlist.Id}}">  
+                            <div class="single-album item">
+                                <i class="fa fa-heart play-icon" (click)="likePlaylist($event, playlist.Id)" [ngClass]="{'liked': auth.activityStorage.likedPlaylistIds.indexOf(playlist.Id) > -1}"></i>
+                                <a [routerLink]="['/playlist-player']" [queryParams]="{ Id: playlist.Id }">  
                                     <img class="d-flex" src="{{playlist.pictureBig}}" alt="">
                                     <div class="album-info">
-                                        <h5>{{playlist.Title}}</h5>
+                                        <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{playlist.Title}}">{{playlist.Title}}</h5>
                                         <p>{{playlist.numberTrack}} tracks</p>
                                     </div>
                                 </a>

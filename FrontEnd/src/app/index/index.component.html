@@ -8,14 +8,14 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-    <div class="preloader d-flex align-items-center justify-content-center">
+    <!-- <div class="preloader d-flex align-items-center justify-content-center">
         <div class="lds-ellipsis">
             <div></div>
             <div></div>
             <div></div>
             <div></div>
         </div>
-    </div>
+    </div> -->
     <!-- ##### Hero Area Start ##### -->
     <section class="hero-area">
         <div class="hero-slides">
@@ -30,7 +30,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">O U T N O W</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">Savage Mode II<span>Savage Mode II</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" (click)='onAlbumClick(180196822)' href="/album-player/?Id=180196822" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                <a data-animation="fadeInUp" data-delay="500ms" [routerLink]="['/album-player']" [queryParams]="{ Id: 180196822 }" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -62,14 +62,14 @@
                 
                 <ng-template carouselSlide *ngFor='let track of tracks'>
                     <div class="single-album">
-                        <a href="track-player/" (click)='onTrackClick(track.Id)' href="/track-player/?Id={{track.Id}}">
+                        <a [routerLink]="['/track-player']" [queryParams]="{ Id: track.Id }">
                             <img class="d-flex" src="{{track.tracksAlbum.coverBig}}" alt="">
                             <div class="album-info">
                                 <h5>{{track.Title}}</h5>
                                 <p>{{track.tracksArtist.Name}}</p>
 
                             </div>
-                    </a>
+                        </a>
                     </div>
                 </ng-template>  
 
@@ -80,7 +80,7 @@
 
 
     <!-- ##### Featured Artist Area Start ##### -->
-    <section class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image:url({{indexTrack.tracksArtist.pictureXL}});">
+    <section *ngIf="isLoaded" class="featured-artist-area section-padding-100 bg-img bg-overlay bg-fixed" style="background-image:url({{indexTrack.tracksArtist.pictureXL}});">
         <div class="container">
             <div class="row align-items-end">
                 <div class="col-12 col-md-5 col-lg-4">
@@ -95,20 +95,18 @@
                             <p>See what’s new</p>
                             <h2>{{indexTrack.Title}}</h2>
                             <p>{{indexTrack.tracksArtist.Name}}</p>
+                            <i class="fa fa-heart" (click)="likeTrack($event, indexTrack)" [ngClass]="{'liked': auth.activityStorage.trackIds.indexOf(indexTrack.Id) > -1}"></i>
                         </div>
-                        <div class="song-name">
-                            <p>{{indexTrack.Title}}</p>
+                        <div class="song-name mb-2">
+                            <div class="song-name mb-2"><a class="text-light" [routerLink]="['/album-player']" [queryParams]="{ Id: indexTrack.tracksAlbum.Id }">{{indexTrack.tracksAlbum.Name}}</a></div>
                         </div>
-                        <vime-player
-                        controls
-                        >
-                        <vime-audio>
-                            <source 
-                            data-src="{{indexTrack.Preview}}"
-                            type="audio/mp3"
-                            />
-                        </vime-audio>
-                        </vime-player>
+                        <!-- <vime-player controls >
+                            <vime-audio>
+                                <source data-src="{{indexTrack.Preview}}"type="audio/mp3"/>
+                            </vime-audio>
+                        </vime-player> -->
+
+                        <audio style="width: 100%" preload controls name="media"><source [src]="getSource(indexTrack.Preview)" type="audio/mpeg"></audio>
                     </div>
                 </div>
             </div>
@@ -134,8 +132,8 @@
                                 <img src="{{track.tracksAlbum.coverBig}}" alt="">
                             </div>
                             <div class="content- col-12 col-lg-3">
-                                <h6>{{track.tracksArtist.Name}}</h6>
-                                <p>{{track.Title}}</p>
+                                <h6>{{track.Title}}</h6>
+                                <p>{{track.tracksArtist.Name}}</p>
                             </div>
                             <div class="col-12 col-lg-3" >
                                 <vime-player controls>
@@ -163,8 +161,8 @@
                                 <div class="thumbnail">
                                     <img src="{{album.coverBig}}" alt="">
                                 </div>
-                                <div class="content-">
-                                    <a (click)='onAlbumClick(album.Id)' href="/album-player/?Id={{album.Id}}">  {{album.Name}}</a>
+                                <div class="content- col-lg-9 col-12">
+                                    <a [routerLink]="['/album-player']" [queryParams]="{ Id: album.Id }">{{album.Name}}</a>
                                     <p>{{album.albumArtist.Name}}</p>
                                 </div>
                             </div>

@@ -1,5 +1,5 @@
 export class Artist {
-    Id: string;
+    Id: number;
     Name: string;
     Picture: string;
     pictureSmall: string;

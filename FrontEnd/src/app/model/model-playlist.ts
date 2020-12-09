@@ -3,7 +3,7 @@ import { User } from "./model-user";
 
 export class Playlist
 {
-    Id: string;
+    Id: number;
     Title: string;
     numberTrack: number;
     Picture: string;

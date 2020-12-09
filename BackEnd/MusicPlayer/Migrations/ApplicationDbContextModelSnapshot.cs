@@ -15,18 +15,16 @@ namespace MusicPlayer.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.0");
 
             modelBuilder.Entity("MusicPlayer.Models.Account", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -41,8 +39,8 @@ namespace MusicPlayer.Migrations
 
             modelBuilder.Entity("MusicPlayer.Models.Album", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Artist")
                         .HasColumnType("nvarchar(max)");
@@ -63,8 +61,8 @@ namespace MusicPlayer.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AlbumId")
-                        .HasColumnType("int");
+                    b.Property<long>("AlbumId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -81,8 +79,8 @@ namespace MusicPlayer.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PlaylistId")
-                        .HasColumnType("int");
+                    b.Property<long>("PlaylistId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -109,8 +107,8 @@ namespace MusicPlayer.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TrackId")
-                        .HasColumnType("int");
+                    b.Property<long>("TrackId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -124,12 +122,10 @@ namespace MusicPlayer.Migrations
 
             modelBuilder.Entity("MusicPlayer.Models.Playlist", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint")
+                        .UseIdentityColumn();
 
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
@@ -158,8 +154,8 @@ namespace MusicPlayer.Migrations
 
             modelBuilder.Entity("MusicPlayer.Models.Track", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
+                    b.Property<long>("Id")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Album")
                         .HasColumnType("nvarchar(max)");
@@ -194,6 +190,10 @@ namespace MusicPlayer.Migrations
                         .HasForeignKey("AlbumId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Album");
                 });
 
             modelBuilder.Entity("MusicPlayer.Models.FavoritePlaylist", b =>
@@ -203,6 +203,8 @@ namespace MusicPlayer.Migrations
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("MusicPlayer.Models.FavoriteTrack", b =>
@@ -218,6 +220,10 @@ namespace MusicPlayer.Migrations
                         .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Account");
+
+                    b.Navigation("Track");
                 });
 
             modelBuilder.Entity("MusicPlayer.Models.Playlist", b =>
@@ -227,6 +233,29 @@ namespace MusicPlayer.Migrations
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("MusicPlayer.Models.Account", b =>
+                {
+                    b.Navigation("FavoriteAlbums");
+
+                    b.Navigation("FavoritePlaylists");
+
+                    b.Navigation("FavoriteTracks");
+
+                    b.Navigation("Playlists");
+                });
+
+            modelBuilder.Entity("MusicPlayer.Models.Album", b =>
+                {
+                    b.Navigation("FavoriteAlbums");
+                });
+
+            modelBuilder.Entity("MusicPlayer.Models.Track", b =>
+                {
+                    b.Navigation("FavoriteTracks");
                 });
 #pragma warning restore 612, 618
         }

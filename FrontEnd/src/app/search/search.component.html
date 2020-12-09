@@ -1,0 +1,131 @@
+
+<!-- ##### Breadcumb Area Start ##### -->
+<section class="breadcumb-area bg-img bg-overlay" style="background-image: url(../../assets/img/bg-img/breadcumb3.jpg);">
+</section>
+<!-- ##### Breadcumb Area End ##### -->
+
+<section class="miscellaneous-area bg-img bg-overlay bg-fixed has-bg-img" >
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-12 col-lg-12" >
+                <div class="new-hits-area">
+                    <div class="bradcumbContent">
+                        <p>Search page</p>
+                        <h2>Nhaccuatoy</h2>
+                    </div>
+
+                    <ng-container *ngIf="!notFound">
+                        <!-- Tracks -->
+                        <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms"><h2>Tracks</h2></div>
+                        <owl-carousel-o [options]="customOptions" *ngIf="searchResult.tracks.length > 0">
+                            <ng-template carouselSlide *ngFor='let track of searchResult.tracks'>
+                                <div class="single-album item">
+                                    <i class="fa fa-heart play-icon" (click)="likeTrack($event, track.id)" [ngClass]="{'liked': auth.activityStorage.trackIds.indexOf(track.id) > -1}"></i>
+                                    <a [routerLink]="['/track-player']" [queryParams]="{ Id: track.id }">
+                                        <img class="d-flex" src="{{track.album.cover_big}}" alt="">
+                                        <div class="album-info">
+                                            <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{track.title}}">{{track.title}}</h5>
+                                            <p class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{track.artist.name}}">{{track.artist.name}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </ng-template>  
+                        </owl-carousel-o>
+                        <div *ngIf="searchResult.tracks.length == 0" class="text-center"><h3>No track matched '{{query}}'</h3></div>
+                        <hr>
+
+                        <!-- Playlists -->
+                        <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms"><h2>Playlists</h2></div>
+                        <owl-carousel-o [options]="customOptions" *ngIf="searchResult.playlists.length > 0">
+                            <ng-template carouselSlide *ngFor='let playlist of searchResult.playlists'>
+                                <div class="single-album item">
+                                    <i class="fa fa-heart play-icon" (click)="likePlaylist($event, playlist.id)" [ngClass]="{'liked': auth.activityStorage.likedPlaylistIds.indexOf(playlist.id) > -1}"></i>
+                                    <a [routerLink]="['/playlist-player']" [queryParams]="{ Id: playlist.id }">
+                                        <img class="d-flex" src="{{playlist.picture_big}}" alt="">
+                                        <div class="album-info">
+                                            <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{playlist.title}}">{{playlist.title}}</h5>
+                                            <p>{{playlist.nb_tracks}} tracks</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </ng-template>  
+                        </owl-carousel-o>
+                        <div *ngIf="searchResult.playlists.length == 0" class="text-center"><h3>No playlist matched '{{query}}'</h3></div>
+                        <hr>
+
+                        <!-- Albums -->
+                        <div class="section-heading text-left mb-50 wow fadeInUp"  data-wow-delay="50ms"><h2>Albums</h2></div>
+                        <owl-carousel-o [options]="customOptions" *ngIf="searchResult.albums.length > 0">
+                            <ng-template carouselSlide *ngFor='let album of searchResult.albums'>
+                                <div class="single-album item">
+                                    <i class="fa fa-heart play-icon" (click)="likeAlbum($event, album.id)" [ngClass]="{'liked': auth.activityStorage.albumsIds.indexOf(album.id) > -1}"></i>
+                                    <a [routerLink]="['/album-player']" [queryParams]="{ Id: album.id }">  
+                                        <img class="d-flex" src="{{album.cover_big}}" alt="">
+                                        <div class="album-info">
+                                            <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{album.title}}">{{album.title}}</h5>
+                                            <p class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{album.artist.name}}">{{album.artist.name}}</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </ng-template>  
+                        </owl-carousel-o>
+                        <div *ngIf="searchResult.albums.length == 0" class="text-center"><h3>No album matched '{{query}}'</h3></div>
+                    </ng-container>
+                    
+                    <div *ngIf="notFound" class="text-center"><h2>No result matched '{{query}}'</h2></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area Start ##### -->
+<section class="contact-area section-padding-100 bg-img bg-overlay bg-fixed has-bg-img" style="background-image: url(../../assets/img/bg-img/bg-2.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading white">
+                    <p>See what’s new</p>
+                    <h2>Get In Touch</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Contact Form Area -->
+                <div class="contact-form-area">
+                    <form action="#" method="post">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="name" placeholder="Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" id="email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12 text-center">
+                                <button class="btn oneMusic-btn mt-30" type="submit">Send <i class="fa fa-angle-double-right"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- ##### Contact Area End ##### -->
+

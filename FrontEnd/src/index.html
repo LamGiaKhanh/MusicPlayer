@@ -8,13 +8,21 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 </head>
 <body class="mat-typography">
   <app-root></app-root>
+  
+  <!-- <script src="../src/assets/js/bootstrap/popper.min.js" ></script>
   <script src="../src/assets/js/bootstrap/bootstrap.min.js" ></script>
-  <script src="../src/assets/js/bootstrap/popper.min.js" ></script>
   <script src="../src/assets/js/jquery/jquery-2.2.4.min.js" ></script>
   <script src="../src/assets/js/plugins/plugins.js" ></script>
-  <script src="../src/assets/js/active.js" ></script>
+  <script src="../src/assets/js/active.js" ></script> -->
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+    });
+  </script>
+  
 </body>
 </html>

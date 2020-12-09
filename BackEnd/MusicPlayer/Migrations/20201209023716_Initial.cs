@@ -11,10 +11,10 @@ namespace MusicPlayer.Migrations
                 name: "Accounts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -25,10 +25,10 @@ namespace MusicPlayer.Migrations
                 name: "Albums",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    Cover = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
-                    Artist = table.Column<string>(nullable: true)
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Cover = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Artist = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,12 +39,12 @@ namespace MusicPlayer.Migrations
                 name: "Tracks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Artist = table.Column<string>(nullable: true),
-                    Album = table.Column<string>(nullable: true),
-                    AlbumId = table.Column<int>(nullable: false),
-                    Duration = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Artist = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Album = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AlbumId = table.Column<int>(type: "int", nullable: false),
+                    Duration = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -55,13 +55,13 @@ namespace MusicPlayer.Migrations
                 name: "FavoritePlaylists",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(nullable: false),
-                    PlaylistId = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(nullable: true),
-                    IsPrivate = table.Column<bool>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false)
+                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    PlaylistId = table.Column<long>(type: "bigint", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPrivate = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -78,14 +78,14 @@ namespace MusicPlayer.Migrations
                 name: "Playlists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    Image = table.Column<string>(nullable: true),
-                    IsPrivate = table.Column<bool>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    AccountId = table.Column<int>(nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPrivate = table.Column<bool>(type: "bit", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,9 +102,9 @@ namespace MusicPlayer.Migrations
                 name: "FavoriteAlbums",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(nullable: false),
-                    AlbumId = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false)
+                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    AlbumId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,9 +127,9 @@ namespace MusicPlayer.Migrations
                 name: "FavoriteTracks",
                 columns: table => new
                 {
-                    AccountId = table.Column<int>(nullable: false),
-                    TrackId = table.Column<int>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false)
+                    AccountId = table.Column<int>(type: "int", nullable: false),
+                    TrackId = table.Column<long>(type: "bigint", nullable: false),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {

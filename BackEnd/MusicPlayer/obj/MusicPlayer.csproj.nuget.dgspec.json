@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {}
+    "D:\\2020_2021\\CNPMM_PM\\nhaccuatoy\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {}
   },
   "projects": {
-    "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {
+    "D:\\2020_2021\\CNPMM_PM\\nhaccuatoy\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
+        "projectUniqueName": "D:\\2020_2021\\CNPMM_PM\\nhaccuatoy\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
         "projectName": "MusicPlayer",
-        "projectPath": "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
-        "packagesPath": "C:\\Users\\lamgi\\.nuget\\packages\\",
-        "outputPath": "D:\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\obj\\",
+        "projectPath": "D:\\2020_2021\\CNPMM_PM\\nhaccuatoy\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
+        "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+        "outputPath": "D:\\2020_2021\\CNPMM_PM\\nhaccuatoy\\MusicPlayer\\BackEnd\\MusicPlayer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\lamgi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -78,12 +78,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -92,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }

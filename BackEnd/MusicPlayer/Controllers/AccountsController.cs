@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MusicPlayer.Models;
+using MusicPlayer.ViewModels;
 
 namespace MusicPlayer.Controllers
 {
@@ -123,6 +124,16 @@ namespace MusicPlayer.Controllers
         private bool AccountExists(int id)
         {
             return _context.Accounts.Any(e => e.Id == id);
+        }
+        // POST: api/Accounts/ChangePassword - Đổi password -> change-password
+        [HttpPost("ChangePassword")]
+        public async Task<ActionResult> ChangePassword(PasswordsVM passwords)
+        {
+            var accountInDB = await _context.Accounts.Where(a=>a.Id == passwords.AccountId && a.Password == passwords.Password).FirstOrDefaultAsync();
+            if (accountInDB == null) return new JsonResult("fail");
+            accountInDB.Password = passwords.NewPass;
+            await _context.SaveChangesAsync();
+            return NoContent();
         }
     }
 }

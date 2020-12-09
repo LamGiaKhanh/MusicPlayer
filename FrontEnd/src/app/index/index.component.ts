@@ -1,14 +1,16 @@
 import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
-import { PlyrComponent } from 'ngx-plyr';
 import { VimePlayer} from 'node_modules/@vime/angular';
-import { fromEventPattern } from 'rxjs';
 import { IndexService } from './index.service';
 import { Track } from '../model/model-track';
 import { Artist } from '../model/model-artist';
 import { Album } from '../model/model-album';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { ApiService } from '../api.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -22,10 +24,10 @@ export class IndexComponent implements OnInit {
   topAlbum: Array<Album> = [];
   topArtist: Array<Artist> = [];
   indexTrack: Track;
-
+  isLoaded: boolean = false;
   public dataset : any[];
   public topTrackDataset : any[];
-  constructor(private service: IndexService, private router: Router, private route: ActivatedRoute ) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private domSanitizer: DomSanitizer, private service: IndexService, private router: Router ) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -42,7 +44,8 @@ export class IndexComponent implements OnInit {
     this.topTracks = [];
     this.topAlbum = [];
     this.topArtist = [];
-    this.getIndexTrack();
+    await this.getIndexTrack();
+    this.isLoaded = true;
     await this.getTopChart();
   }
 
@@ -55,7 +58,7 @@ export class IndexComponent implements OnInit {
     dataTrack.Preview = track.preview;
     dataTrack.md5image = track.md5image;
     dataTrack.tracksArtist = {Id: track.artist.id, Name: track.artist.name, pictureBig:track.artist.picture_big, pictureMedium:track.artist.picture_medium, pictureSmall:track.artist.picture_small,pictureXL: track.artist.picture_xl, Picture: track.artist.picture};
-    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.name, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
+    dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.title, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
     // dataTrack.tracksAlbum.Id = track.album.id;
     // dataTrack.tracksAlbum.Name = track.album.name;
     // dataTrack.tracksAlbum.Cover = track.album.cover;
@@ -191,5 +194,37 @@ export class IndexComponent implements OnInit {
       }
     },
   }
-
+  getSource(url: string): SafeUrl
+  {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+  async likeTrack(event: any, track: Track)
+  {
+    if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
+    else 
+    {
+      if (event.currentTarget.classList.contains('liked'))
+      {
+        let url = ApiService.backendHost + `/api/FavoriteTracks/${this.auth.currentAccountValue.id}/${track.Id}`;
+        try 
+        {
+          await this.http.delete(url).toPromise();
+          this.auth.updateTrack(track.Id, false);
+        }
+        catch (e) { console.log(e) }
+      }
+      else 
+      {
+        let postTrack = {id: track.Id, title: track.Title, album: track.tracksAlbum.Name, albumId: track.tracksAlbum.Id, duration: 30, artist: track.tracksArtist.Name};
+        try 
+        {
+          let url = ApiService.backendHost + `/api/FavoriteTracks`;
+          let postObject = {accountId: this.auth.currentAccountValue.id, track: postTrack}
+          await this.http.post(url, postObject).toPromise();
+          this.auth.updateTrack(track.Id, true);
+        }
+        catch (e) { console.log(e); }
+      }
+    }
+  }
 }

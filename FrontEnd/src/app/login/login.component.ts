@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Account } from '../register/model';
@@ -14,11 +14,14 @@ export class LoginComponent implements OnInit {
   account: Account = {id: 0, email: '', password: ''};
   showAlert: boolean = false;
   remember: boolean = false;
-  constructor(private auth: AuthenticationService, private http: HttpClient, private router: Router) { }
+  callback: string = '';
+  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void 
   {
-
+    this.route.queryParams.subscribe(params => {
+      this.callback = params["callback"] || null;
+    }); 
   }
   setAlert()
   {
@@ -39,8 +42,8 @@ export class LoginComponent implements OnInit {
       else 
       {
         this.auth.saveAccount(result.account, this.remember, result.activities);
-        console.log(this.auth.currentAccountValue)
-        this.router.navigateByUrl('/index');
+        if (this.callback == null) this.router.navigateByUrl('/index');
+        else this.router.navigateByUrl(this.callback);
       }
     } 
     catch(e) { console.log(e); }

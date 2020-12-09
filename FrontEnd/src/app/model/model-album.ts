@@ -3,7 +3,7 @@ import { Track } from "./model-track";
 
 export class Album
 {
-    Id: string;
+    Id: number;
     Name: string;
     Cover: string;
     coverSmall: string;
