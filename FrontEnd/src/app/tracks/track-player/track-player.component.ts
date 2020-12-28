@@ -1,8 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Track } from 'src/app/model/model-track';
-import { TrackPlayerService } from './track-player.service';
-import { IndexService } from '../../index/index.service';
+import { DeezerService } from '../../shared/service/deezer.service';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { HttpClient } from '@angular/common/http';
@@ -31,7 +30,7 @@ export class TrackPlayerComponent implements OnInit {
   slideDataset : any;
   isLoaded: boolean = false;
 
-  constructor(private domSanitizer: DomSanitizer, private http: HttpClient, public auth: AuthenticationService, private service: TrackPlayerService, private globalService: IndexService, private router: Router, private route: ActivatedRoute ) 
+  constructor(private domSanitizer: DomSanitizer, private http: HttpClient, public auth: AuthenticationService, private service: DeezerService , private router: Router, private route: ActivatedRoute ) 
   {
     this.router.routeReuseStrategy.shouldReuseRoute = function () { return false; };
   }
@@ -75,7 +74,7 @@ export class TrackPlayerComponent implements OnInit {
   public loadTrack = async (id) => {
     try
     {
-      const raw_track = await this.service.getTrack(id) as any;
+      const raw_track = await this.service.getTrackPlayer(id) as any;
       console.log(id);
       if (raw_track) 
       {
@@ -90,7 +89,7 @@ export class TrackPlayerComponent implements OnInit {
   }
 
   public getSlide10 = async (query) => {
-    const list = await this.globalService.getSearchList(query) as any;
+    const list = await this.service.getSearchList(query) as any;
     console.log(list[1]);
     if (list) 
     {

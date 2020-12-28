@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from '../model/model-album';
-import { AlbumsService } from './albums.service';
 import { Router, NavigationEnd, NavigationStart, ActivatedRoute } from '@angular/router';
-import { IndexService } from '../index/index.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
+import { DeezerService } from '../shared/service/deezer.service';
 
 
 @Component({
@@ -18,7 +17,7 @@ export class AlbumsComponent implements OnInit {
   albumDataset: any[];
   isLoaded: boolean = false;
 
-  constructor(private http: HttpClient, private auth: AuthenticationService, private service: AlbumsService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: DeezerService, private router: Router, private route: ActivatedRoute) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -96,7 +95,7 @@ export class AlbumsComponent implements OnInit {
           
         }
       }
-      const list5 = await this.globalService.getChartList() as any;
+      const list5 = await this.service.getChartList() as any;
       if (list5)
       {
         for (let i = 0; i < list5.albums.data.length; i++) 

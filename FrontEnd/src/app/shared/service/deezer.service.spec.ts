@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TrackPlayerService } from './track-player.service';
+import { DeezerService } from './deezer.service';
 
-describe('TrackPlayerService', () => {
-  let service: TrackPlayerService;
+describe('DeezerService', () => {
+  let service: DeezerService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TrackPlayerService);
+    service = TestBed.inject(DeezerService);
   });
 
   it('should be created', () => {

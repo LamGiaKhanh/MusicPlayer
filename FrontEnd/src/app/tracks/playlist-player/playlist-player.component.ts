@@ -5,8 +5,7 @@ import { ApiService } from 'src/app/api.service';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
 import { Playlist } from 'src/app/model/model-playlist';
 import { Track } from 'src/app/model/model-track';
-import { TracksService } from '../tracks.service';
-import { PlaylistPlayerService } from './playlist-player.service';
+import { DeezerService } from '../../shared/service/deezer.service';
 
 @Component({
   selector: 'app-playlist-player',
@@ -17,7 +16,7 @@ export class PlaylistPlayerComponent implements OnInit {
   playlistId;
   listTracks: Array<Track>;
   playlistDetail: Playlist;
-  constructor(private http: HttpClient, private auth: AuthenticationService, private service: PlaylistPlayerService, private trackService: TracksService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: DeezerService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -52,11 +51,11 @@ export class PlaylistPlayerComponent implements OnInit {
   }
 
   public loadTracks = async (id) => {
-    const playlist = await this.trackService.getPlaylist(id) as any;
+    const playlist = await this.service.getPlaylist(id) as any;
     if (playlist) 
     {
       this.playlistDetail = this.initPlaylist(playlist);
-      const listTracks = await this.service.getTracks(id) as any;
+      const listTracks = await this.service.getTrackPlayer(id) as any;
       for (let i = 0; i < listTracks.data.length; i++) 
       {  
         this.listTracks.push(this.initTrack(listTracks.data[i]));

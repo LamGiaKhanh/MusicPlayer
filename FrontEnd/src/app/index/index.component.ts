@@ -2,7 +2,7 @@ import { ViewChild } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { VimePlayer} from 'node_modules/@vime/angular';
-import { IndexService } from './index.service';
+import { DeezerService } from '../shared/service/deezer.service';
 import { Track } from '../model/model-track';
 import { Artist } from '../model/model-artist';
 import { Album } from '../model/model-album';
@@ -27,7 +27,7 @@ export class IndexComponent implements OnInit {
   isLoaded: boolean = false;
   public dataset : any[];
   public topTrackDataset : any[];
-  constructor(private http: HttpClient, private auth: AuthenticationService, private domSanitizer: DomSanitizer, private service: IndexService, private router: Router ) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private domSanitizer: DomSanitizer, private service: DeezerService, private router: Router ) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
@@ -79,14 +79,7 @@ export class IndexComponent implements OnInit {
     dataAlbum.coverSmall = album.cover_small;
     dataAlbum.coverXL = album.cover_xl;
     dataAlbum.albumArtist = {Id:  album.artist.id, Name: album.artist.name, Picture: album.artist.picture, pictureSmall: album.artist.picture_small, pictureMedium: album.artist.picture_medium, pictureBig: album.artist.picture_big, pictureXL: album.artist.picture_xl }
-    // dataAlbum.albumArtist.Id = album.artist.id;
-    // dataAlbum.albumArtist.Name = album.artist.name;
-    // dataAlbum.albumArtist.Picture = album.artist.picture;
-    // dataAlbum.albumArtist.pictureSmall = album.artist.picture_small;
-    // dataAlbum.albumArtist.pictureMedium = album.artist.picture_medium;
-    // dataAlbum.albumArtist.pictureBig = album.artist.picture_big;
-    // dataAlbum.albumArtist.pictureXL = album.artist.picture_xl;
-    //trackList api: https://api.deezer.com/album/{{id}}/tracks
+
     return dataAlbum;
   }
 
@@ -101,7 +94,6 @@ export class IndexComponent implements OnInit {
     dataArtist.pictureBig = artist.picture_big;
     dataArtist.pictureXL = artist.picture_xl;
     
-    //trackList api: 	"https://api.deezer.com/artist/75798/top?limit=10"
     return dataArtist;
   }
 
@@ -126,7 +118,6 @@ export class IndexComponent implements OnInit {
       {
         for (let i = 0; i < 10; i++) 
         {
-          // console.log(list.tracks.data[i])
           this.topTracks.push(this.initTrack(list.tracks.data[i]));
           this.topAlbum.push(this.initAlbum(list.albums.data[i]));
           this.topArtist.push(this.initArtist(list.artists.data[i]));

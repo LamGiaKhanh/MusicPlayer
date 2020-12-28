@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlbumPlayerService } from './album-player.service';
-import { AlbumsService  } from '../albums.service';
+import { DeezerService } from '../../shared/service/deezer.service';
 import { Track } from 'src/app/model/model-track';
 import { Album } from 'src/app/model/model-album';
 import { AuthenticationService } from 'src/app/authentication/authentication.service';
@@ -17,7 +16,7 @@ export class AlbumPlayerComponent implements OnInit {
   albumId;
   listTracks: Array<Track>;
   albumDetail: Album;
-  constructor(private http: HttpClient, private auth: AuthenticationService, private service: AlbumPlayerService, private GAService: AlbumsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service:DeezerService , private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.queryParams
@@ -62,7 +61,7 @@ export class AlbumPlayerComponent implements OnInit {
   }
 
   public loadTracks = async (id) => {
-    const list = await this.service.getAlbumList(id) as any;
+    const list = await this.service.getAlbumPlayer(id) as any;
     if (list) 
     {
       this.albumDetail = this.initAlbum(list);

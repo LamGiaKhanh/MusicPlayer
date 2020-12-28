@@ -5,8 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VimePlayer } from '@vime/angular';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { Playlist } from '../model/model-playlist';
-import { TracksService } from './tracks.service';
-import { IndexService } from '../index/index.service';
+import { DeezerService } from '../shared/service/deezer.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
@@ -26,7 +25,7 @@ export class TracksComponent implements OnInit {
   onRepeatPlaylist: Array<Playlist>  = [];
   onRepeatPlaylistDataset: any;
 
-  constructor(private http: HttpClient, private auth: AuthenticationService, private service: TracksService,private globalService: IndexService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: DeezerService , private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.reload();
@@ -67,7 +66,7 @@ export class TracksComponent implements OnInit {
 
   public getTopChart = async () => {
     try {
-      const list = await this.globalService.getChartList() as any;
+      const list = await this.service.getChartList() as any;
       if (list)
       {
         for (let i = 0; i < 10; i++) 
