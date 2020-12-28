@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { Account } from './model';
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   alertMsg: string = '';
 
   constructor(private http: HttpClient, private router: Router) { }
-
+  @ViewChild ('form', {static: true}) registerForm: NgForm;
+  
   ngOnInit(): void 
   {
 

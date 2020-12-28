@@ -9,7 +9,8 @@ export class AlbumPlayerService {
 
   constructor(private http: HttpClient) { }
 
-  public getAlbumList = async (id) => {
+  public async getAlbumList(id): Promise<any>
+  {
     try 
     {
       let url = ApiService.backendHost + `/api/deezer/album/player/${id}`;
@@ -20,6 +21,7 @@ export class AlbumPlayerService {
     catch (e)
     {
       console.log(e);
+      return null
     }
   }
 }

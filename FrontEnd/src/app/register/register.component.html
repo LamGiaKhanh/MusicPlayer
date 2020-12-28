@@ -18,7 +18,7 @@
                     </div>
                     <!-- Login Form -->
                     <div class="login-form">
-                        <form action="#" method="post">
+                        <form #form="ngForm" method="post">
                             <!-- Email -->
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
@@ -46,7 +46,7 @@
                                     <small id="exampleInputPassword2" *ngIf="confirmPass != '' && confirmPass != account.password" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Passwords don't match!</small>
                                 </ng-container>
                             </div>
-                            <button [disabled]="email.invalid || password.invalid || confirm.invalid || confirmPass != account.password" (click)="register()" class="btn oneMusic-btn mt-30">Register</button>
+                            <button [disabled]="form.invalid || confirmPass != account.password" (click)="register()" class="btn oneMusic-btn mt-30">Register</button>
                         </form>
                     </div>
                 </div>

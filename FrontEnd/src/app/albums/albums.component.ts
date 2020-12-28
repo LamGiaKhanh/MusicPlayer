@@ -59,7 +59,8 @@ export class AlbumsComponent implements OnInit {
   public getAlbumList = async () => {
     try
     {
-      const list = await this.service.getAlbumList('adele') as any;
+      const list = await this.service.getAlbumList('taylor') as any;
+      console.log(list)
       if (list) 
       {
         for (let i = 0; i < 3; i++) 
@@ -77,7 +78,7 @@ export class AlbumsComponent implements OnInit {
           
         }
       }
-      const list3 = await this.service.getAlbumList('drake') as any;
+      const list3 = await this.service.getAlbumList('the weeknd') as any;
       if (list3) 
       {
         for (let i = 0; i < 3; i++) 

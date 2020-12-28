@@ -21,13 +21,6 @@ namespace MusicPlayer.Controllers
             _context = context;
         }
 
-        // GET: api/FavoriteAlbums
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<FavoriteAlbum>>> GetFavoriteAlbums()
-        {
-            return await _context.FavoriteAlbums.ToListAsync();
-        }
-
         // GET: api/FavoriteAlbums/5
         [HttpGet("{id}")]
         public async Task<ActionResult<FavoriteAlbum>> GetFavoriteAlbum(long id)

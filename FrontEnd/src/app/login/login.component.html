@@ -18,11 +18,11 @@
                     <div *ngIf="showAlert" class="alert alert-danger" role="alert">Email or password doesn't exist!</div>
                     <!-- Login Form -->
                     <div class="login-form">
-                        <form class="mb-2">
+                        <form #form="ngForm" class="mb-2">
                             <!-- Email -->
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" name="email" required #email="ngModel" [(ngModel)]="account.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" [ngClass]="{'is-invalid': email.invalid && (email.touched || email.dirty)}">
+                                <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="account.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter E-mail" [ngClass]="{'is-invalid': email.invalid && (email.touched || email.dirty)}">
                                 <ng-container *ngIf="email.invalid && (email.touched || email.dirty)">
                                     <small id="emailHelp" *ngIf="email.errors?.required" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Please fill out this field!</small>
                                     <small id="emailHelp" *ngIf="email.errors?.pattern" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Invalid email!</small>
@@ -37,7 +37,7 @@
                                 <input type="password" class="form-control" name="password" required #password="ngModel" [(ngModel)]="account.password" id="exampleInputPassword1" placeholder="Password" [ngClass]="{'is-invalid': password.invalid && (password.touched || password.dirty)}">     
                                 <small id="exampleInputPassword1" *ngIf="password.errors?.required && (password.touched || password.dirty)" class="form-text text-danger"><i class="fa fa-exclamation-circle"></i> Please fill out this field!</small>
                             </div>
-                            <button (click)="login()" [disabled]="email.invalid || password.invalid" type="submit" class="btn oneMusic-btn mt-30">Login</button>
+                            <button (click)="login()" [disabled]="form.invalid" type="submit" class="btn oneMusic-btn mt-30">Login</button>
                         </form>
                         <div class="text-center">
                             <small>Don't have an account? <a href="/register">Register here!</a></small>

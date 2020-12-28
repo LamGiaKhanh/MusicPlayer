@@ -21,27 +21,6 @@ namespace MusicPlayer.Controllers
             _context = context;
         }
 
-        // GET: api/FavoriteTracks
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<FavoriteTrack>>> GetFavoriteTracks()
-        {
-            return await _context.FavoriteTracks.ToListAsync();
-        }
-
-        // GET: api/FavoriteTracks/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<FavoriteTrack>> GetFavoriteTrack(long id)
-        {
-            var favoriteTrack = await _context.FavoriteTracks.FindAsync(id);
-
-            if (favoriteTrack == null)
-            {
-                return NotFound();
-            }
-
-            return favoriteTrack;
-        }
-
 
         // POST: api/FavoriteTracks
         [HttpPost]

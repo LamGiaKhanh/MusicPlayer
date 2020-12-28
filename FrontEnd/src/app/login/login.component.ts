@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../api.service';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { Account } from '../register/model';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +17,8 @@ export class LoginComponent implements OnInit {
   showAlert: boolean = false;
   remember: boolean = false;
   callback: string = '';
+  @ViewChild ('form', {static: true}) loginForm: NgForm;
+
   constructor(private route: ActivatedRoute, private auth: AuthenticationService, private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void 

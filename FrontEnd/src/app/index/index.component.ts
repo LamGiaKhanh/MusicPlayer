@@ -143,7 +143,7 @@ export class IndexComponent implements OnInit {
   public getIndexTrack = async () => {
     try
     {
-    const list = await this.service.getSearchList('xo tour life') as any;
+    const list = await this.service.getSearchList('willow') as any;
     if (list) 
     {
       this.indexTrack = this.initTrack(list[0]);

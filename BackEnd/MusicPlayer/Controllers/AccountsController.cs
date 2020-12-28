@@ -21,66 +21,14 @@ namespace MusicPlayer.Controllers
             _context = context;
         }
 
-        // GET: api/Accounts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Account>>> GetAccounts()
-        {
-            return await _context.Accounts.ToListAsync();
-        }
-
-        // GET: api/Accounts/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Account>> GetAccount(int id)
-        {
-            var account = await _context.Accounts.FindAsync(id);
-
-            if (account == null)
-            {
-                return NotFound();
-            }
-
-            return account;
-        }
-
-        // PUT: api/Accounts/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAccount(int id, Account account)
-        {
-            if (id != account.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(account).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AccountExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
 
         // POST: api/Accounts -> login
         [HttpPost]
         public async Task<ActionResult<object>> Login(Account account)
         {
             var accountInDB = await _context.Accounts.Where(a => a.Email.ToLower() == account.Email.ToLower() && a.Password == account.Password)
-                                                     .Include(a=>a.FavoriteAlbums)
-                                                     .Include(a=>a.FavoriteTracks)
+                                                     .Include(a => a.FavoriteAlbums)
+                                                     .Include(a => a.FavoriteTracks)
                                                      .Include(a => a.FavoritePlaylists)
                                                      .Include(a => a.Playlists).FirstOrDefaultAsync();
             if (accountInDB == null) return NoContent();
@@ -105,31 +53,12 @@ namespace MusicPlayer.Controllers
             return account;
         }
 
-        // DELETE: api/Accounts/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Account>> DeleteAccount(int id)
-        {
-            var account = await _context.Accounts.FindAsync(id);
-            if (account == null)
-            {
-                return NotFound();
-            }
 
-            _context.Accounts.Remove(account);
-            await _context.SaveChangesAsync();
-
-            return account;
-        }
-
-        private bool AccountExists(int id)
-        {
-            return _context.Accounts.Any(e => e.Id == id);
-        }
         // POST: api/Accounts/ChangePassword - Đổi password -> change-password
         [HttpPost("ChangePassword")]
         public async Task<ActionResult> ChangePassword(PasswordsVM passwords)
         {
-            var accountInDB = await _context.Accounts.Where(a=>a.Id == passwords.AccountId && a.Password == passwords.Password).FirstOrDefaultAsync();
+            var accountInDB = await _context.Accounts.Where(a => a.Id == passwords.AccountId && a.Password == passwords.Password).FirstOrDefaultAsync();
             if (accountInDB == null) return new JsonResult("fail");
             accountInDB.Password = passwords.NewPass;
             await _context.SaveChangesAsync();
