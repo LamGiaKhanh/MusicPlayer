@@ -55,10 +55,11 @@ export class PlaylistPlayerComponent implements OnInit {
     if (playlist) 
     {
       this.playlistDetail = this.initPlaylist(playlist);
-      const listTracks = await this.service.getTrackPlayer(id) as any;
+      const listTracks = await this.service.getPlaylistPlayer(id) as any;
       for (let i = 0; i < listTracks.data.length; i++) 
       {  
         this.listTracks.push(this.initTrack(listTracks.data[i]));
+        console.log(listTracks.data[i].title)
       }
     }
     return this.listTracks;

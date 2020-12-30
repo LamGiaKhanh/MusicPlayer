@@ -49,7 +49,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     HttpClientJsonpModule,
     CarouselModule,
     PlyrModule,
-    FormsModule,
+    FormsModule,    
     BrowserAnimationsModule,
     VimeModule
   ],

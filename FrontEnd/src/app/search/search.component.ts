@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
   searchResult: any = {tracks: [], albums: [], playlists: []};
   notFound: boolean = false;
 
+
   customOptions: OwlOptions = {
     center: true,
     items:4,

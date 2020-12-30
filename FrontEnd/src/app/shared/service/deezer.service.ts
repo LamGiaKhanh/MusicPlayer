@@ -37,6 +37,19 @@ export class DeezerService {
     }
   }
 
+  public getPlaylistPlayer = async (id) => {
+    try 
+    {
+      let url = ApiService.backendHost + `/api/deezer/playlist/player/${id}`;
+      let r = await this.http.get<any>(url).toPromise() as any;
+      return r;
+    }
+    catch (e)
+    {
+      console.log(e);
+    }
+  }
+
   public getAlbumList = async (query) => {
     try 
     {
