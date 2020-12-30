@@ -10,7 +10,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
-import { PlyrModule } from 'ngx-plyr';
 import { LoginComponent } from './login/login.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { TrackPlayerComponent } from './tracks/track-player/track-player.component';
@@ -48,7 +47,6 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     HttpClientModule,
     HttpClientJsonpModule,
     CarouselModule,
-    PlyrModule,
     FormsModule,    
     BrowserAnimationsModule,
     VimeModule
