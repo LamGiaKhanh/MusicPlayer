@@ -30,7 +30,7 @@
                             <div class="hero-slides-content text-center">
                                 <h6 data-animation="fadeInUp" data-delay="100ms">O U T N O W</h6>
                                 <h2 data-animation="fadeInUp" data-delay="300ms">Savage Mode II<span>Savage Mode II</span></h2>
-                                <a data-animation="fadeInUp" data-delay="500ms" [routerLink]="['/album-player']" [queryParams]="{ Id: 180196822 }" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
+                                <a data-animation="fadeInUp wow" data-wow-delay="50ms" data-delay="500ms" [routerLink]="['/album-player']" [queryParams]="{ Id: 180196822 }" class="btn oneMusic-btn mt-50">Discover <i class="fa fa-angle-double-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -41,7 +41,7 @@
     <!-- ##### Hero Area End ##### -->
 
     <!-- ##### Latest Albums Area Start ##### -->
-    <section class="latest-albums-area section-padding-100">
+    <section class="latest-albums-area section-padding-100 wow" data-wow-delay="50ms">
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center fadeInUp wow">
                 <div class="col-12 col-lg-9">
                     <div class="ablums-text text-center mb-70">
                         <p>Nam tristique ex vel magna tincidunt, ut porta nisl finibus. Vivamus eu dolor eu quam varius rutrum. Fusce nec justo id sem aliquam fringilla nec non lacus. Suspendisse eget lobortis nisi, ac cursus odio. Vivamus nibh velit, rutrum at ipsum ac, dignissim iaculis ante. Donec in velit non elit pulvinar pellentesque et non eros.</p>
@@ -59,7 +59,6 @@
                 </div>
             </div>
             <owl-carousel-o [options]="customOptions">
-                
                 <ng-template carouselSlide *ngFor='let track of tracks'>
                     <div class="single-album">
                         <a [routerLink]="['/track-player']" [queryParams]="{ Id: track.Id }">
