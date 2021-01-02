@@ -41,7 +41,7 @@ namespace MusicPlayer.Controllers
                 }
             }
 
-            return CreatedAtAction("GetFavoritePlaylist", new { id = favoritePlaylist.AccountId }, favoritePlaylist);
+            return NoContent();
         }
 
         // DELETE: api/FavoritePlaylists/5
