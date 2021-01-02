@@ -8957,19 +8957,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\lamgi\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\KHANH\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
+      "projectUniqueName": "D:\\CNPMM\\tmp\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
       "projectName": "MusicPlayer",
-      "projectPath": "D:\\KHANH\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\KHANH\\CNPMM\\MusicPlayer\\BackEnd\\MusicPlayer\\obj\\",
+      "projectPath": "D:\\CNPMM\\tmp\\MusicPlayer\\BackEnd\\MusicPlayer\\MusicPlayer.csproj",
+      "packagesPath": "C:\\Users\\lamgi\\.nuget\\packages\\",
+      "outputPath": "D:\\CNPMM\\tmp\\MusicPlayer\\BackEnd\\MusicPlayer\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\lamgi\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
