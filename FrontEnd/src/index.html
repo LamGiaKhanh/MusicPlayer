@@ -16,6 +16,20 @@
     $(document).ready(function() {
       $("body").tooltip({ selector: '[data-toggle=tooltip]' });
     });
+
+    $(window).scroll(function() 
+    {    
+      var scroll = $(window).scrollTop();
+  
+      if (scroll >= 200) 
+      {
+        $("#sticky-wrapper").addClass('is-sticky')
+        $("#sticky-wrapper").children("div").css('position', 'fixed').css('top', 0).css('z-index', 'inherrit')      
+      } else {
+        $("#sticky-wrapper").removeClass('is-sticky')
+        $("#sticky-wrapper").children("div").removeAttr('style') 
+      }
+    });
   </script>
   
 </body>

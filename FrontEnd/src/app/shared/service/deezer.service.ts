@@ -124,4 +124,20 @@ export class DeezerService {
       console.log(e);
     }
   }
+
+  public async getLatestAlbums(): Promise<any[]>
+  {
+    try 
+    {
+      let url = ApiService.backendHost + `/api/deezer/album/release`;
+      let r = await this.http.get<any>(url).toPromise() as any;
+      return r.data;
+    }
+    catch (e)
+    {
+      console.log(e);
+      return [];
+    }
+  }
+
 }

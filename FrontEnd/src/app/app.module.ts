@@ -17,7 +17,7 @@ import { RegisterComponent } from './register/register.component';
 import { VimeModule } from 'node_modules/@vime/angular';
 //Services
 import { ApiService } from './api.service';
-import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.component';
+//import { TapSidesToSeekComponent } from './tap-sides-to-seek/tap-sides-to-seek.component';
 import { AlbumPlayerComponent } from './albums/album-player/album-player.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { PlaylistPlayerComponent } from './tracks/playlist-player/playlist-player.component';
@@ -34,7 +34,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     AlbumsComponent,
     TrackPlayerComponent,
     RegisterComponent,
-    TapSidesToSeekComponent,
+    //TapSidesToSeekComponent,
     AlbumPlayerComponent,
     TracksComponent,
     PlaylistPlayerComponent,

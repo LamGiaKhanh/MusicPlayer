@@ -144,7 +144,7 @@ namespace MusicPlayer.Controllers
 
 
         [HttpGet("chart")]
-        public async Task<ActionResult<object>> GetCharts(string type)
+        public async Task<ActionResult<object>> GetCharts()
         {
             object result;
             using (var httpClient = new HttpClient())
@@ -198,6 +198,22 @@ namespace MusicPlayer.Controllers
                 }
             }
             return new { Tracks = tracks, Albums = albums, Playlists = playlists};
+        }
+
+        [HttpGet("album/release")]
+        public async Task<ActionResult<object>> GetNewReleasedAlbums()
+        {
+            object result;
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync(ApiHelper.Deezer + "editorial/116/releases"))
+                {
+                    if (!response.IsSuccessStatusCode) return NotFound();
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    result = JsonConvert.DeserializeObject<object>(apiResponse);
+                }
+            }
+            return result;
         }
     }
 }

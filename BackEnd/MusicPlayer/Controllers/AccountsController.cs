@@ -30,14 +30,13 @@ namespace MusicPlayer.Controllers
                                                      .Include(a => a.FavoriteAlbums)
                                                      .Include(a => a.FavoriteTracks)
                                                      .Include(a => a.FavoritePlaylists)
-                                                     .Include(a => a.Playlists).FirstOrDefaultAsync();
+                                                     .FirstOrDefaultAsync();
             if (accountInDB == null) return NoContent();
             var activities = new
             {
                 AlbumsIds = accountInDB.FavoriteAlbums.Select(a => a.AlbumId),
                 TrackIds = accountInDB.FavoriteTracks.Select(t => t.TrackId),
                 LikedPlaylistIds = accountInDB.FavoritePlaylists.Select(p => p.PlaylistId),
-                OwnedPlaylistIds = accountInDB.Playlists.Select(p => p.Id)
             };
             return new { Account = new Account() { Id = accountInDB.Id, Email = accountInDB.Email }, Activities = activities };
         }

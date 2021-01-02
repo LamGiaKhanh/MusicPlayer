@@ -1,63 +1,66 @@
 <!-- ##### Header Area Start ##### -->
 <header class="header-area">
-    <!-- Navbar Area -->
-    <div class="oneMusic-main-menu">
-        <div class="classy-nav-container breakpoint-off">
-            <div class="container">
-                <!-- Menu -->
-                <nav class="classy-navbar justify-content-between" id="oneMusicNav">
-
-                    <!-- Nav brand -->
-                    <a href="index.html" class="nav-brand"><img src="../../../assets/img/core-img/logo2.png" alt=""></a>
-
-                    <!-- Navbar Toggler -->
-                    <div class="classy-navbar-toggler">
-                        <span class="navbarToggler"><span></span><span></span><span></span></span>
-                    </div>
-
-                
+    <div id="sticky-wrapper" class="sticky-wrapper" style="height: 85px;">
+        <!-- Navbar Area -->
+        <div class="oneMusic-main-menu">
+            <div class="classy-nav-container breakpoint-off">
+                <div class="container">
                     <!-- Menu -->
-                    <div class="classy-menu row align-items-center">
-                        <div class="input-group col">
-                            <input (keyup.enter)="search()" class="form-control py-2 rounded-pill mr-1 pr-5 bg-transparent border border-light text-light" placeholder="Search tracks, albums, ..." type="search" [(ngModel)]="query">
-                            <span class="input-group-append" style="z-index: 10;">
-                                <button (click)="search()" class="btn rounded-pill border-0 ml-n5 text-light" type="button"><i class="fa fa-search"></i></button>
-                            </span>
+                    <nav class="classy-navbar justify-content-between" id="oneMusicNav">
+
+                        <!-- Nav brand -->
+                        <a href="index.html" class="nav-brand"><img src="../../../assets/img/core-img/logo2.png" alt=""></a>
+
+                        <!-- Navbar Toggler -->
+                        <div class="classy-navbar-toggler">
+                            <span class="navbarToggler"><span></span><span></span><span></span></span>
                         </div>
 
-                        <!-- Nav Start -->
-                        <div class="classynav col-auto">
-                            
-                            <ul>
-                                <li><a href="#">Home</a></li>
-                                <li><a href="/albums">Albums</a></li>
-                                <li><a href="/tracks">Playlists</a></li>
-                                <!-- <li><a href="/albums">Search</a></li>
-                                <li><a href="/albums">Contact</a></li> -->
-                            </ul>
+                    
+                        <!-- Menu -->
+                        <div class="classy-menu row align-items-center">
+                            <div class="input-group col">
+                                <input (keyup.enter)="search()" class="form-control py-2 rounded-pill mr-1 pr-5 bg-transparent border border-light text-light" placeholder="Search tracks, albums, ..." type="search" [(ngModel)]="query">
+                                <span class="input-group-append" style="z-index: 10;">
+                                    <button (click)="search()" class="btn rounded-pill border-0 ml-n5 text-light" type="button"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
 
-                            <!-- Login/Register & Cart Button -->
-                            <div class="login-register-cart-button d-flex align-items-center">
-                                <!-- Login/Register -->
-                                <div class="login-register-btn mr-50" *ngIf="auth.currentAccountValue == null">
-                                    <a href="/login" id="loginBtn">Login / Register</a>
-                                </div>
+                            <!-- Nav Start -->
+                            <div class="classynav col-auto">
+                                
+                                <ul>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="/albums">Albums</a></li>
+                                    <li><a href="/tracks">Playlists</a></li>
+                                    <!-- <li><a href="/albums">Search</a></li>
+                                    <li><a href="/albums">Contact</a></li> -->
+                                </ul>
 
-                                <div class="dropdown" *ngIf="auth.currentAccountValue != null">
-                                    <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item" href="/change-password">Change password</a>
-                                      <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Log out</a>
+                                <!-- Login/Register & Cart Button -->
+                                <div class="login-register-cart-button d-flex align-items-center">
+                                    <!-- Login/Register -->
+                                    <div class="login-register-btn mr-50" *ngIf="auth.currentAccountValue == null">
+                                        <a href="/login" id="loginBtn">Login / Register</a>
+                                    </div>
+
+                                    <div class="dropdown" *ngIf="auth.currentAccountValue != null">
+                                        <button class="btn btn-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                                            <div data-toggle="tooltip" data-placement="bottom" title="{{auth.currentAccountValue.email}}" class="username"> {{auth.currentAccountValue.email}}</div>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="/change-password">Change password</a>
+                                        <a class="dropdown-item" href="javascript:void(0)" (click)="logout()">Log out</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Nav End -->
+                            <!-- Nav End -->
 
-                    </div>
-                </nav>
+                        </div>
+                    </nav>
+                </div>
             </div>
         </div>
     </div>

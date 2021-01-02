@@ -12,7 +12,6 @@ namespace MusicPlayer.Models
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public ICollection<Playlist> Playlists { get; set; }
         public ICollection<FavoriteAlbum> FavoriteAlbums { get; set; }
         public ICollection<FavoriteTrack> FavoriteTracks { get; set; }
         public ICollection<FavoritePlaylist> FavoritePlaylists { get; set; }

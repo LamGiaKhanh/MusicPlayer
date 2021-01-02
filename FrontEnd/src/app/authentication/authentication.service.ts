@@ -100,12 +100,7 @@ export class AuthenticationService
        else this.activityStorage.likedPlaylistIds = this.activityStorage.likedPlaylistIds.filter(m => m != playlistId);
        this.setActivityStorage();
    }
-   public updateOwnedPlaylist(playlistId: number, isAdded: boolean)
-   {
-       if (isAdded) this.activityStorage.ownedPlaylistIds.push(playlistId);
-       else this.activityStorage.ownedPlaylistIds = this.activityStorage.ownedPlaylistIds.filter(m => m != playlistId);
-       this.setActivityStorage();
-   }
+   
    
    public isAuthenticated(): boolean 
    {

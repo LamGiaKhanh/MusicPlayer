@@ -59,14 +59,13 @@
                 </div>
             </div>
             <owl-carousel-o [options]="customOptions">
-                <ng-template carouselSlide *ngFor='let track of tracks'>
+                <ng-template carouselSlide *ngFor='let album of latestAlbums'>
                     <div class="single-album">
-                        <a [routerLink]="['/track-player']" [queryParams]="{ Id: track.Id }">
-                            <img class="d-flex" src="{{track.tracksAlbum.coverBig}}" alt="">
+                        <a [routerLink]="['/album-player']" [queryParams]="{ Id: album.id }">
+                            <img class="d-flex" src="{{album.cover_big}}" alt="">
                             <div class="album-info">
-                                <h5>{{track.Title}}</h5>
-                                <p>{{track.tracksArtist.Name}}</p>
-
+                                <h5 class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{album.title}}">{{album.title}}</h5>
+                                <p class="text-truncate" data-toggle="tooltip" data-placement="top" title="{{album.artist.name}}">{{album.artist.name}}</p>
                             </div>
                         </a>
                     </div>
@@ -99,13 +98,13 @@
                         <div class="song-name mb-2">
                             <div class="song-name mb-2"><a class="text-light" [routerLink]="['/album-player']" [queryParams]="{ Id: indexTrack.tracksAlbum.Id }">{{indexTrack.tracksAlbum.Name}}</a></div>
                         </div>
-                        <!-- <vime-player controls >
+                        <vime-player controls >
                             <vime-audio>
-                                <source data-src="{{indexTrack.Preview}}"type="audio/mp3"/>
+                                <source data-src="{{indexTrack.Preview}}" type="audio/mp3"/>
                             </vime-audio>
-                        </vime-player> -->
+                        </vime-player>
 
-                        <audio style="width: 100%" preload controls name="media"><source [src]="getSource(indexTrack.Preview)" type="audio/mpeg"></audio>
+                        <!-- <audio style="width: 100%" preload controls name="media"><source [src]="getSource(indexTrack.Preview)" type="audio/mpeg"></audio> -->
                     </div>
                 </div>
             </div>

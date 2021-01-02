@@ -7,7 +7,6 @@ import { Track } from '../model/model-track';
 import { Artist } from '../model/model-artist';
 import { Album } from '../model/model-album';
 import { Router } from '@angular/router';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { ApiService } from '../api.service';
 import { HttpClient } from '@angular/common/http';
@@ -19,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-  tracks: Array<Track> = [];
+
   topTracks: Array<Track> = [];
   topAlbum: Array<Album> = [];
   topArtist: Array<Artist> = [];
@@ -27,17 +26,18 @@ export class IndexComponent implements OnInit {
   isLoaded: boolean = false;
   public dataset : any[];
   public topTrackDataset : any[];
-  constructor(private http: HttpClient, private auth: AuthenticationService, private domSanitizer: DomSanitizer, private service: DeezerService, private router: Router ) { }
+  latestAlbums: any[] = [];
+
+  constructor(private http: HttpClient, private auth: AuthenticationService, private service: DeezerService, private router: Router ) { }
 
   async ngOnInit(): Promise<void> {
     await this.reload();
   }
 
   private reload = async () => {
-    this.tracks = new Array<Track>();
-    this.tracks = [];
+  
     this.indexTrack = new Track();
-    this.dataset = await this.getSlide10();
+    this.latestAlbums = await this.service.getLatestAlbums();
     this.topTracks = new Array<Track>();
     this.topAlbum = new Array<Album>();
     this.topArtist = new Array<Artist>();
@@ -59,12 +59,6 @@ export class IndexComponent implements OnInit {
     dataTrack.md5image = track.md5image;
     dataTrack.tracksArtist = {Id: track.artist.id, Name: track.artist.name, pictureBig:track.artist.picture_big, pictureMedium:track.artist.picture_medium, pictureSmall:track.artist.picture_small,pictureXL: track.artist.picture_xl, Picture: track.artist.picture};
     dataTrack.tracksAlbum = {Id: track.album.id, Name: track.album.title, Cover: track.album.cover, coverSmall: track.album.cover_small, coverMedium: track.album.cover_medium, coverBig: track.album.cover_big, coverXL: track.album.coverXL, albumArtist: null, trackList: null};
-    // dataTrack.tracksAlbum.Id = track.album.id;
-    // dataTrack.tracksAlbum.Name = track.album.name;
-    // dataTrack.tracksAlbum.Cover = track.album.cover;
-    // dataTrack.tracksAlbum.coverSmall = track.album.cover_small;
-    // dataTrack.tracksAlbum.coverMedium = track.album.cover_medium;
-    // dataTrack.tracksAlbum.coverBig = track.album.cover_big;
     return dataTrack;
   }
 
@@ -98,18 +92,18 @@ export class IndexComponent implements OnInit {
   }
 
 
-  public getSlide10 = async () => {
-    const list = await this.service.getSearchList('travis scott') as any;
-    if (list) 
-    {
-      for (let i = 0; i < 10; i++) 
-      {  
-        this.tracks.push(this.initTrack(list[i]));
+  // public getSlide10 = async () => {
+  //   const list = await this.service.getSearchList('travis scott') as any;
+  //   if (list) 
+  //   {
+  //     for (let i = 0; i < 10; i++) 
+  //     {  
+  //       this.tracks.push(this.initTrack(list[i]));
         
-      }
-    }
-    return this.tracks;
-  }
+  //     }
+  //   }
+  //   return this.tracks;
+  // }
 
   public getTopChart = async () => {
     try {
@@ -185,10 +179,7 @@ export class IndexComponent implements OnInit {
       }
     },
   }
-  getSource(url: string): SafeUrl
-  {
-    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+  
   async likeTrack(event: any, track: Track)
   {
     if (this.auth.currentAccountValue == null) this.router.navigate(['/login'], {queryParams: {callback: this.router.url} });
@@ -218,4 +209,5 @@ export class IndexComponent implements OnInit {
       }
     }
   }
+  
 }
